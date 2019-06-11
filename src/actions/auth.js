@@ -36,3 +36,36 @@ const login = loginData => dispatch => {
 export const loginThenGoToUserProfile = loginData => dispatch => {
   return dispatch(login(loginData)).then(() => dispatch(push("/profile")));
 };
+
+export const LOGOUT = "LOGOUT";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_FAIL = "LOGOUT_FAIL";
+
+const logout = () => (dispatch, getState) => {
+  dispatch({
+    type: LOGOUT
+  });
+
+  const token = getState().auth.login.token;
+
+  return fetch(url + "/logout", {
+    method: "GET",
+    headers: { ...jsonHeaders, Authorization: `Bearer ${token}` }
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({
+        type: LOGOUT_SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({ type: LOGOUT_FAIL, payload: err.message })
+      );
+    });
+};
+
+export const logoutThenGoToHomepage = () => dispatch => {
+  return dispatch(logout()).then(() => dispatch(push("/")));
+};
