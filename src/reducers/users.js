@@ -1,9 +1,18 @@
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAIL } from "../actions";
+import {
+  GET_USER,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  UPLOAD_PICTURE,
+  UPLOAD_PICTURE_SUCCESS,
+  UPLOAD_PICTURE_FAIL
+} from "../actions";
 
 const initialState = {
   getUserError: null,
   user: null,
-  getUserLoading: false
+  getUserLoading: false,
+  uploadPictureLoading: false,
+  uploadPictureError: null
 };
 
 export default (state = initialState, action) => {
@@ -25,6 +34,22 @@ export default (state = initialState, action) => {
         ...state,
         getUserError: action.payload,
         getUserLoading: false
+      };
+    case UPLOAD_PICTURE:
+      return {
+        ...state,
+        uploadPictureLoading: true,
+        uploadPictureError: null
+      };
+    case UPLOAD_PICTURE_SUCCESS:
+      return {
+        ...state,
+        uploadPictureLoading: false
+      };
+    case UPLOAD_PICTURE_FAIL:
+      return {
+        ...state,
+        uploadPictureError: action.payload
       };
     default:
       return state;
