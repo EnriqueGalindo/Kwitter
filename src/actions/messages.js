@@ -25,10 +25,12 @@ export const getMessages = (limit = 100, offset = 0, userId) => dispatch => {
       });
     })
     .catch(err => {
-      dispatch({
-        type: userId ? GET_USER_MESSAGES_FAIL : GET_MESSAGES_FAIL,
-        payload: err
-      });
+      return Promise.reject(
+        dispatch({
+          type: userId ? GET_USER_MESSAGES_FAIL : GET_MESSAGES_FAIL,
+          payload: err
+        })
+      );
     });
 };
 

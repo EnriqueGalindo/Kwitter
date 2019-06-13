@@ -21,10 +21,12 @@ export const getUser = userId => dispatch => {
       });
     })
     .catch(err => {
-      dispatch({
-        type: GET_USER_FAIL,
-        payload: err
-      });
+      return Promise.reject(
+        dispatch({
+          type: GET_USER_FAIL,
+          payload: err
+        })
+      );
     });
 };
 export const getLoggedInUser = () => (dispatch, getState) => {

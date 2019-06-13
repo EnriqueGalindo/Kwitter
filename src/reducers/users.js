@@ -49,7 +49,8 @@ export default (state = initialState, action) => {
     case UPLOAD_PICTURE_FAIL:
       return {
         ...state,
-        uploadPictureError: action.payload
+        uploadPictureError: action.payload,
+        uploadPictureLoading: false
       };
     default:
       return state;
