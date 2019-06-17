@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getUserProfile,
-  uploadPictureThenGetLoggedInUser as uploadPicture
+  uploadPictureThenGetLoggedInUser as uploadPicture,
+  toggleLikeThenUpdateMessageById as toggleLike
 } from "../actions";
 import { domain } from "../actions/constants";
 import defaultProfilePicture from "../default-profile.png";
@@ -46,6 +47,9 @@ class UserProfile extends Component {
               <p>{message.createdAt}</p>
               <p>{message.text}</p>
               <p>Number of likes: {message.likes.length}</p>
+              <button onClick={event => this.props.toggleLike(message.id)}>
+                Like/Unlike
+              </button>
             </React.Fragment>
           );
         })}
@@ -64,7 +68,8 @@ const mapStateToProps = state => {
 // this.props.uploadPicture
 const mapDispatchToProps = {
   getUserProfile,
-  uploadPicture
+  uploadPicture,
+  toggleLike
 };
 
 export default connect(

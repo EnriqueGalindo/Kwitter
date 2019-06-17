@@ -38,3 +38,25 @@ export const getLoggedInUserMessages = () => (dispatch, getState) => {
   const userId = getState().auth.login.id;
   dispatch(getMessages(10000, 0, userId));
 };
+
+export const UPDATE_MESSAGE_BY_ID = "UPDATE_MESSAGE_BY_ID";
+export const UPDATE_MESSAGE_BY_ID_SUCCESS = "UPDATE_MESSAGE_BY_ID_SUCCESS";
+export const UPDATE_MESSAGE_BY_ID_FAIL = "UPDATE_MESSAGE_BY_ID_FAIL";
+
+export const updateMessageById = messageId => dispatch => {
+  dispatch({ type: UPDATE_MESSAGE_BY_ID });
+
+  return fetch(url + `/${messageId}`)
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({
+        type: UPDATE_MESSAGE_BY_ID_SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({ type: UPDATE_MESSAGE_BY_ID_FAIL, payload: err })
+      );
+    });
+};

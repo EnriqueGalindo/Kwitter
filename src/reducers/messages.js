@@ -4,7 +4,10 @@ import {
   GET_MESSAGES_FAIL,
   GET_USER_MESSAGES,
   GET_USER_MESSAGES_SUCCESS,
-  GET_USER_MESSAGES_FAIL
+  GET_USER_MESSAGES_FAIL,
+  UPDATE_MESSAGE_BY_ID,
+  UPDATE_MESSAGE_BY_ID_SUCCESS,
+  UPDATE_MESSAGE_BY_ID_FAIL
 } from "../actions";
 
 const initialState = {
@@ -13,7 +16,9 @@ const initialState = {
   getMessagesError: null,
   getUserMessagesLoading: false,
   userMessages: [],
-  getUserMessagesError: null
+  getUserMessagesError: null,
+  updateMessageByIdLoading: false,
+  updateMessageByIdError: null
 };
 
 export default (state = initialState, action) => {
@@ -52,6 +57,35 @@ export default (state = initialState, action) => {
         ...state,
         getUserMessagesError: action.payload,
         getUserMessagesLoading: false
+      };
+    case UPDATE_MESSAGE_BY_ID:
+      return {
+        ...state,
+        updateMessageByIdLoading: true,
+        updateMessageByIdError: null
+      };
+    case UPDATE_MESSAGE_BY_ID_SUCCESS:
+      const newMessages = state.messages.map(message =>
+        message.id === action.payload.message.id
+          ? action.payload.message
+          : message
+      );
+      const newUserMessages = state.userMessages.map(message =>
+        message.id === action.payload.message.id
+          ? action.payload.message
+          : message
+      );
+      return {
+        ...state,
+        updateMessageByIdLoading: false,
+        messages: newMessages,
+        userMessages: newUserMessages
+      };
+    case UPDATE_MESSAGE_BY_ID_FAIL:
+      return {
+        ...state,
+        updateMessageByIdError: action.payload,
+        updateMessageByIdLoading: false
       };
     default:
       return state;
