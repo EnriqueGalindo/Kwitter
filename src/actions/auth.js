@@ -6,6 +6,10 @@ export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
+export const LOGIN_GOOGLE = "LOGIN_GOOGLE";
+export const LOGIN_GOOGLE_SUCCESS = "LOGIN_GOOGLE_SUCCESS";
+export const LOGIN_GOOGLE_FAIL = "LOGIN_GOOGLE_FAIL";
+
 const url = domain + "/auth";
 
 // action creators
@@ -31,6 +35,54 @@ const login = loginData => dispatch => {
         dispatch({ type: LOGIN_FAIL, payload: err.message })
       );
     });
+};
+
+export const loginGoogle = () => dispatch => {
+  dispatch({
+    type: LOGIN_GOOGLE
+  });
+
+  return new Promise((resolve, reject) => {
+    // Open a new window
+    const win = window.open(
+      url + "/google/login",
+      "Google Auth",
+      "height=600,width=450"
+    );
+    if (win) win.focus();
+    window.addEventListener(
+      "message",
+      function googleLoginCallback(event) {
+        // IMPORTANT: Check the origin of the data!
+        if (~event.origin.indexOf("https://kwitter-api.herokuapp.com")) {
+          // The data has been sent from your site
+
+          // The data sent with postMessage is stored in event.data
+          console.log(event.data);
+          win.close();
+          window.removeEventListener("message", googleLoginCallback);
+          resolve(
+            dispatch({
+              type: LOGIN_GOOGLE_SUCCESS,
+              payload: event.data
+            })
+          );
+        } else {
+          console.log("bad message!");
+          console.log(event);
+          //reject(dispatch({ type: LOGIN_GOOGLE_FAIL }));
+          // The data hasn't been sent from your site!
+          // Be careful! Do not use it.
+          return;
+        }
+      },
+      false
+    );
+  });
+};
+
+export const loginGoogleThenGoToUserProfile = () => dispatch => {
+  return dispatch(loginGoogle()).then(() => dispatch(push("/profile")));
 };
 
 export const loginThenGoToUserProfile = loginData => dispatch => {

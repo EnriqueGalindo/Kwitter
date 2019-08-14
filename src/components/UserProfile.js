@@ -43,7 +43,7 @@ class UserProfile extends Component {
         {this.props.messages.map(message => {
           return (
             <React.Fragment>
-              <p>{message.userId}</p>
+              <p>{message.username}</p>
               <p>{message.createdAt}</p>
               <p>{message.text}</p>
               <p>Number of likes: {message.likes.length}</p>

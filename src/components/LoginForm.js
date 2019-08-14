@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loginThenGoToUserProfile as login } from "../actions";
+import {
+  loginThenGoToUserProfile as login,
+  loginGoogleThenGoToUserProfile as loginGoogle
+} from "../actions";
 import Spinner from "react-spinkit";
 
 class LoginForm extends Component {
@@ -20,7 +23,7 @@ class LoginForm extends Component {
     return (
       <React.Fragment>
         <h1>Login</h1>
-        <form onSubmit={this.handleLogin}>
+        <form disabled={isLoading} onSubmit={this.handleLogin}>
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -40,6 +43,9 @@ class LoginForm extends Component {
             Login
           </button>
         </form>
+        <button disabled={isLoading} onClick={this.props.loginGoogle}>
+          Login via Google
+        </button>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}
       </React.Fragment>
@@ -52,5 +58,5 @@ export default connect(
     isLoading: auth.loginLoading,
     err: auth.loginError
   }),
-  { login }
+  { login, loginGoogle }
 )(LoginForm);

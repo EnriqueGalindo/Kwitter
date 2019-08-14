@@ -4,7 +4,7 @@ import { updateMessageById } from ".";
 const url = domain + "/likes";
 
 export const toggleLike = messageId => (dispatch, getState) => {
-  const userId = getState().auth.login.id;
+  const username = getState().auth.login.username;
 
   let message = null;
   message = getState().messages.userMessages.find(
@@ -16,7 +16,7 @@ export const toggleLike = messageId => (dispatch, getState) => {
     );
   }
 
-  const like = message.likes.find(like => like.userId === userId);
+  const like = message.likes.find(like => like.username === username);
   if (like) {
     return dispatch(removeLike(like.id));
   } else {

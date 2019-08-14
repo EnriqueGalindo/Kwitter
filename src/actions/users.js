@@ -7,12 +7,12 @@ export const GET_USER_FAIL = "GET_USER_FAIL";
 
 const url = domain + "/users";
 
-export const getUser = userId => dispatch => {
+export const getUser = username => dispatch => {
   dispatch({
     type: GET_USER
   });
 
-  return fetch(url + "/" + userId)
+  return fetch(url + "/" + username)
     .then(handleJsonResponse)
     .then(result => {
       dispatch({
@@ -30,8 +30,8 @@ export const getUser = userId => dispatch => {
     });
 };
 export const getLoggedInUser = () => (dispatch, getState) => {
-  const userId = getState().auth.login.id;
-  return dispatch(getUser(userId));
+  const username = getState().auth.login.username;
+  return dispatch(getUser(username));
 };
 
 export const getUserProfile = () => dispatch => {
@@ -47,10 +47,10 @@ export const uploadPicture = formData => (dispatch, getState) => {
     type: UPLOAD_PICTURE
   });
 
-  const userId = getState().auth.login.id;
+  const username = getState().auth.login.username;
   const token = getState().auth.login.token;
 
-  return fetch(url + `/${userId}/picture`, {
+  return fetch(url + `/${username}/picture`, {
     method: "PUT",
     headers: { Authorization: `Bearer ${token}` },
     body: formData
