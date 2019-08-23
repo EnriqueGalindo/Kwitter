@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginThenGoToUserProfile as login } from "../actions";
 import Spinner from "react-spinkit";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 class LoginForm extends Component {
   state = { username: "", password: "" };
@@ -41,9 +41,9 @@ class LoginForm extends Component {
             Login
           </button>
         </form>
-        <Link to="/register">
+        <NavLink to="/register">
           <button>Create New Profile</button>
-        </Link>
+        </NavLink>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}
       </>
