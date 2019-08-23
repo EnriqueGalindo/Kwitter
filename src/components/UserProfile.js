@@ -12,6 +12,7 @@ import {
 } from "re-bulma";
 import { connect } from "react-redux";
 import { getLoggedInUserProfileInfo } from "../actions/users";
+import { logoutThenGoToHomepage as logout } from "../actions";
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class UserProfile extends Component {
   render() {
     return (
       <>
+        <Button onClick={this.props.logout}>Logout</Button>
         <Card>
           <CardImage>
             <Image src={this.props.user.pictureLocation} />
@@ -53,5 +55,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getLoggedInUserProfileInfo }
+  { getLoggedInUserProfileInfo, logout }
 )(UserProfile);
