@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import { LoginForm, UserProfile } from ".";
+import { LoginForm, UserProfile, MessageBoard } from ".";
 import RegisterForm from "./RegisterForm";
+import "../App.sass";
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
         <Route exact path="/" component={LoginForm} />
         <Route exact path="/profile" component={UserProfile} />
         <Route exact path="/register" component={RegisterForm} />
+        <Route exact path="/messages" component={MessageBoard} />
       </Switch>
     );
   }

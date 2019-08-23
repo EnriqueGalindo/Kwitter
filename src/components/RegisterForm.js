@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Input, Label, Button } from "re-bulma";
 import { connect } from "react-redux";
 import { registerThenGoToProfile } from "../actions/users";
 import Spinner from "react-spinkit";
@@ -27,8 +26,8 @@ export class RegisterUser extends Component {
     return (
       <>
         <form onSubmit={this.handleSubmit}>
-          <Label>Name</Label>
-          <Input
+          <label>Name</label>
+          <input
             type="text"
             placeholder="Tell us your name!"
             name="displayName"
@@ -36,25 +35,25 @@ export class RegisterUser extends Component {
             autoFocus
             required
           />
-          <Label>Username</Label>
-          <Input
+          <label>Username</label>
+          <input
             type="text"
             placeholder="Create your username"
             name="username"
             onChange={this.handleChange}
             required
           />
-          <Label>Password</Label>
-          <Input
+          <label>Password</label>
+          <input
             type="password"
             placeholder="Create password"
             name="password"
             onChange={this.handleChange}
             required
           />
-          <Button type="submit" disabled={isLoading}>
+          <button type="submit" disabled={isLoading}>
             Submit
-          </Button>
+          </button>
         </form>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}

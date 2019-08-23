@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bulma": "^0.7.5",
     "connected-react-router": "^6.5.2",
     "history": "^4.9.0",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-bulma-components": "^2.3.0",
     "react-dom": "^16.8.6",
@@ -16,8 +18,6 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "bulma": "^0.7.5",
-    "node-sass": "^4.12.0",
     "sass": "^1.22.10"
   },
   "scripts": {

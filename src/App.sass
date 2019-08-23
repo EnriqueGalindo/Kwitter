@@ -4,17 +4,17 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 // Set your brand colors
-$turquoise: #40E0D0;
+$purple: #8a4d76;
 $pink: #fa7c91;
 $brown: #757763;
 $beige-light: #d0d1cd;
-$beige-lighter: #fff;
+$beige-lighter: #eff0eb;
 
 // Update Bulma's global variables
 $family-sans-serif: 'Nunito', sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: $turquoise;
+$primary: $purple;
 $link: $pink;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
@@ -22,9 +22,8 @@ $fullhd-enabled: false;
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
 $control-border-width: 2px;
-$input-border-color: $pink;
+$input-border-color: transparent;
 $input-shadow: none;
-$message-width: 200px;
 
 // Import only what you need from Bulma
 @import '../node_modules/bulma/sass/utilities/_all.sass';
@@ -36,4 +35,5 @@ $message-width: 200px;
 @import '../node_modules/bulma/sass/components/navbar.sass';
 @import '../node_modules/bulma/sass/layout/hero.sass';
 @import '../node_modules/bulma/sass/layout/section.sass';
+@import '../node_modules/bulma/sass/components/card.sass';
 @import '../node_modules/bulma/sass/components/message.sass';

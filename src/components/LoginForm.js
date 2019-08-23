@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginThenGoToUserProfile as login } from "../actions";
 import Spinner from "react-spinkit";
-import { Button } from "re-bulma";
 import { Link } from "react-router-dom";
 
 class LoginForm extends Component {
@@ -20,7 +19,7 @@ class LoginForm extends Component {
   render() {
     const { isLoading, err } = this.props;
     return (
-      <React.Fragment>
+      <>
         <h1>Login</h1>
         <form onSubmit={this.handleLogin}>
           <label htmlFor="username">Username</label>
@@ -43,11 +42,11 @@ class LoginForm extends Component {
           </button>
         </form>
         <Link to="/register">
-          <Button>Create New Profile</Button>
+          <button>Create New Profile</button>
         </Link>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}
-      </React.Fragment>
+      </>
     );
   }
 }

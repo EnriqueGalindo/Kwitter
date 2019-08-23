@@ -13,7 +13,7 @@ export const LOGOUT_FAIL = "LOGOUT_FAIL";
 const url = domain + "/auth";
 
 // action creators
-const login = loginData => dispatch => {
+export const login = loginData => dispatch => {
   dispatch({
     type: LOGIN
   });

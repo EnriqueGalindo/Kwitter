@@ -20,7 +20,7 @@ class MessageBoard extends Component {
                   <article class="message is-primary">
                     <div class="message-header has-text-left-desktop">
                       {" "}
-                      <img src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces" />
+                      <img src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces" alt="img"/>
                       Username: {message.username}
                     </div>
 
