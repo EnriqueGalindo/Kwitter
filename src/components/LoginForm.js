@@ -20,32 +20,74 @@ class LoginForm extends Component {
     const { isLoading, err } = this.props;
     return (
       <>
-        <h1>Login</h1>
-        <form onSubmit={this.handleLogin}>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            autoFocus
-            required
-            onChange={this.handleChange}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            required
-            onChange={this.handleChange}
-          />
-          <button type="submit" disabled={isLoading}>
-            Login
-          </button>
-        </form>
-        <Link to="/register">
-          <button>Create New Profile</button>
-        </Link>
-        {isLoading && <Spinner name="circle" color="blue" />}
-        {err && <p style={{ color: "red" }}>{err}</p>}
+        <figure class="image container is-128x128">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+            alt="Capsule Corp"
+          ></img>
+        </figure>
+        <div className="container" id="container1">
+          <div className="section">
+            <div className="container">
+              <div className="message">
+                <div className="container" id="innerContainer">
+                  <h1 className="is-size-1 has-text-white has-text-centered">
+                    Login
+                  </h1>
+                  <form onSubmit={this.handleLogin}>
+                    <div className="field">
+                      <input
+                        type="text"
+                        name="username"
+                        autoFocus
+                        required
+                        onChange={this.handleChange}
+                        placeholder="Enter Username"
+                      />
+
+                      <br></br>
+
+                      <input
+                        type="password"
+                        name="password"
+                        required
+                        onChange={this.handleChange}
+                        placeholder="Enter Password"
+                      />
+
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="button is-large"
+                        id="login"
+                      >
+                        Login
+                      </button>
+
+                      <Link to="/register">
+                        <div className="is-centered">
+                          <button
+                            className="button is-large"
+                            id="newProfile"
+                            disabled={isLoading}
+                          >
+                            Create New Profile
+                          </button>
+                        </div>
+                        <br></br>
+                      </Link>
+                      {isLoading && <Spinner name="circle" color="blue" />}
+                      {err && <p style={{ color: "red" }}>{err}</p>}
+                    </div>
+                  </form>
+                  <br></br>
+
+                  <div className="control"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
     );
   }
@@ -58,4 +100,3 @@ export default connect(
   }),
   { login }
 )(LoginForm);
-
