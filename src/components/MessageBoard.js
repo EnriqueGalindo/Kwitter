@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getMessages} from "../actions";
+import { getMessages, likeMessage } from "../actions";
 
 class MessageBoard extends Component {
   componentDidMount() {
@@ -34,6 +34,7 @@ class MessageBoard extends Component {
                         >
                           {" "}
                           <img
+                            id="defaultImg"
                             src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces"
                             alt="Bulma as default"
                           />
@@ -43,14 +44,13 @@ class MessageBoard extends Component {
                         <div id="message" className="message-body">
                           {message.text}
                         </div>
-                        <button className="button">
+                        <button className="button" id="likeButton">
                           {console.log(message.id)}
                           <div id="like">
                             Like
                             {message.likes.map(like => {
-                              //   {
-                              //     onclick = this.props.likeMessage(message.id);
-                              //   }
+                              onclick = this.props.likeMessage(message.id);
+
                               return <p key={like.id}>Liked by: {like.id}</p>;
                             })}
                           </div>
@@ -77,8 +77,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  getMessages
-  //likeMessage
+  getMessages,
+  likeMessage
 };
 
 export default connect(
