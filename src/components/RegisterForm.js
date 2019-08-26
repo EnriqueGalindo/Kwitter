@@ -74,6 +74,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  mapDispatchToProps,
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(RegisterUser);
