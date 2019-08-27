@@ -13,74 +13,8 @@ code {
     monospace;
 }
 
-#defaultImg {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-}
-
-#message {
-  text-align: center;
-  align-content: center;
-}
-
-#registration {
-  text-align: center;
-}
-
-.control {
-  position: relative;
-  left: 240px;
-}
-
-input {
-  display: flex;
-  width: auto;
-  margin: auto;
-  height: 50px;
-  font-size: 25px;
-  border-radius: 10px;
-}
-
-form {
-  width: auto;
-  margin: auto;
-}
-
-button {
-  border-radius: 10px;
-}
-
-#message-header {
-  background-color: aqua;
-}
-
-#likeButton {
-  left: 440px;
-}
-
-#container1 {
-  position: relative;
-}
-
-#innerContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  margin: 50px;
-}
-
-@-ms-viewport {
-  width: device-width;
-}
-
-#login {
-  margin: 20px;
-  left: 65px;
-}
-
-#newProfile {
-  left: 20px;
+#cardContainer {
+  width: 500px;
+  height: 500px;
+  margin-top: 200px;
 }

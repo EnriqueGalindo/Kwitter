@@ -5,29 +5,39 @@
 
 // Set your brand colors
 $turquoise: #40E0D0;
-$pink: #fa7c91;
-$white: #ffff;
+$magenta: #FF00FF;
+$brown: #757763;
+$beige-light: #d0d1cd;
+$beige-lighter: #eff0eb;
+$white: #ffffff;
+$midnightblue: 	#191970;
+$slateblue: #6A5ACD;
 
 // Update Bulma's global variables
 $family-sans-serif: 'Nunito', sans-serif;
 $primary: $turquoise;
-$link: $pink;
+$link: $magenta;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 $radius: 10px;
 
 // Update some of Bulma's component variables
-$body-background-color: $white;
+$body-background-color: $slateblue;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
-$message-background-color: $turquoise;
-$message-radius: $radius;
-$input-radius: $radius;
+$card-background-color: $turquoise;
+$card-footer-background-color: $white;
 
 // Import only what you need from Bulma
 @import '../node_modules/bulma/sass/utilities/_all.sass';
 @import '../node_modules/bulma/sass/base/_all.sass';
-@import '../node_modules/bulma/sass/elements/_all.sass';
-@import '../node_modules/bulma/sass/components/_all.sass';
-@import '../node_modules/bulma/sass/layout/_all.sass';
+@import '../node_modules/bulma/sass/elements/button.sass';
+@import '../node_modules/bulma/sass/elements/container.sass';
+@import '../node_modules/bulma/sass/elements/form.sass';
+@import '../node_modules/bulma/sass/elements/title.sass';
+@import '../node_modules/bulma/sass/components/navbar.sass';
+@import '../node_modules/bulma/sass/layout/hero.sass';
+@import '../node_modules/bulma/sass/layout/section.sass';
+@import '../node_modules/bulma/sass/components/card.sass';
+@import '../node_modules/bulma/sass/components/message.sass';
