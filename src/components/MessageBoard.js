@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import { getMessages } from "../actions";
 import {postMessage} from "../actions"
+=======
+import { getMessages, likeMessage } from "../actions";
+
+>>>>>>> fdc5186735bea0c905db3440f0d59febbd1f88cb
 class MessageBoard extends Component {
   state = {message: ""}
   componentDidMount() {
@@ -41,6 +46,7 @@ handleChange = (event) => {
                         >
                           {" "}
                           <img
+                            id="defaultImg"
                             src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces"
                             alt="Bulma as default"
                           />
@@ -50,14 +56,13 @@ handleChange = (event) => {
                         <div id="message" className="message-body">
                           {message.text}
                         </div>
-                        <button className="button">
+                        <button className="button" id="likeButton">
                           {console.log(message.id)}
                           <div id="like">
                             Like
                             {message.likes.map(like => {
-                              //   {
-                              //     onclick = this.props.likeMessage(message.id);
-                              //   }
+                              onclick = this.props.likeMessage(message.id);
+
                               return <p key={like.id}>Liked by: {like.id}</p>;
                             })}
                           </div>
@@ -85,8 +90,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getMessages,
+<<<<<<< HEAD
   postMessage
   //likeMessage
+=======
+  likeMessage
+>>>>>>> fdc5186735bea0c905db3440f0d59febbd1f88cb
 };
 
 export default connect(

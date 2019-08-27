@@ -12,3 +12,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#cardContainer {
+  width: 500px;
+  height: 500px;
+  margin-top: 200px;
+}
