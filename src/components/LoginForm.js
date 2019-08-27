@@ -81,8 +81,6 @@ class LoginForm extends Component {
                     </div>
                   </form>
                   <br></br>
-
-                  <div className="control"></div>
                 </div>
               </div>
             </div>

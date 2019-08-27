@@ -44,17 +44,26 @@ class MessageBoard extends Component {
                         <div id="message" className="message-body">
                           {message.text}
                         </div>
-                        <button className="button" id="likeButton">
-                          {console.log(message.id)}
+
+                        <button
+                          className="button"
+                          id="likeButton"
+                          onClick={() => this.props.likeMessage(message.id)}
+                        >
+                          {console.log(message)}
                           <div id="like">
                             Like
                             {message.likes.map(like => {
-                              onclick = this.props.likeMessage(message.id);
-
-                              return <p key={like.id}>Liked by: {like.id}</p>;
+                              return <p key={like.id}></p>;
                             })}
                           </div>
                         </button>
+                        <div className="container">
+                          <span class="icon has-text-danger">
+                            <i class="fa fa-heart" />
+                          </span>
+                          {message.likes.length}
+                        </div>
                       </div>
                     </div>
                   </div>
