@@ -34,9 +34,9 @@ class LoginForm extends Component {
         />
 
         <Container>
-          <br></br>
+          <br />
           <Col style={{ backgroundColor: "turquoise", borderRadius: "5px" }}>
-            <Form>
+            <Form onSubmit={this.handleLogin}>
               <Container>
                 <Row>
                   <Col style={{ color: "white" }}>
@@ -46,10 +46,7 @@ class LoginForm extends Component {
 
                 <Row>
                   <Col md={{ span: 6, offset: 3 }}>
-                    <Form.Group
-                      controlId="exampleForm.ControlInput1"
-                      onSubmit={this.handleLogin}
-                    >
+                    <Form.Group controlId="exampleForm.ControlInput1">
                       <Form.Control
                         type="text"
                         name="username"
@@ -73,7 +70,7 @@ class LoginForm extends Component {
                     />
                   </Col>
                 </Row>
-                <br></br>
+                <br />
                 <ButtonToolbar
                   style={{ display: "flex", justifyContent: "center" }}
                 >
@@ -88,11 +85,11 @@ class LoginForm extends Component {
                         <Button size="lg" disabled={isLoading}>
                           Create New Profile
                         </Button>
-                        <br></br>
+                        <br />
                       </Link>
                       {isLoading && <Spinner name="circle" color="blue" />}
                       {err && <p style={{ color: "red" }}>{err}</p>}
-                      <br></br>
+                      <br />
                     </Col>
                   </Row>
                 </ButtonToolbar>
