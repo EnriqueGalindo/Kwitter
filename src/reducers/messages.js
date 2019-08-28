@@ -32,6 +32,7 @@ export default (state = initialState, action) => {
         getMessages: action.payload.messages,
         getMessagesLoading: false
       };
+      
 
     default:
       return state;

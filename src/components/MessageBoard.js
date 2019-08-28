@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+
 import { getMessages, likeMessage } from "../actions";
 
+
 class MessageBoard extends Component {
+  state = {message: ""}
   componentDidMount() {
     this.props.getMessages();
     //this.props.likeMessage();
   }
-
+handleChange = (event) => {
+  this.setState({message: event.target.value})
+}
   render() {
     console.log(this.props.messages);
     return (
@@ -22,6 +28,10 @@ class MessageBoard extends Component {
                 </h1>
               </div>
             </div>
+            <textarea onChange={this.handleChange}>
+            
+            </textarea>
+            <button onClick={() => this.props.postMessage(this.state.message)}>submit</button>
             {this.props.messages.map(message => {
               return (
                 <React.Fragment key={message.id}>
