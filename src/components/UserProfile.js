@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getLoggedInUserProfileInfo } from "../actions/users";
-import { logoutThenGoToHomepage as logout } from "../actions";
+import { logoutThenGoToHomepage as logout, expandImage } from "../actions";
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -15,7 +15,13 @@ class UserProfile extends Component {
         <div class="card">
           <div class="card-image">
             <figure class="image is-4by3">
-              <img src={this.props.user.pictureLocation} alt="user face" />
+              <img
+                src={this.props.user.pictureLocation}
+                alt="user face"
+                onClick={() =>
+                  this.props.expandImage(this.props.user.displayName)
+                }
+              />
             </figure>
           </div>
           <div class="card-content">
@@ -38,5 +44,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getLoggedInUserProfileInfo, logout }
+  { getLoggedInUserProfileInfo, logout, expandImage }
 )(UserProfile);
