@@ -18,3 +18,7 @@ code {
   justify-content: center;
   margin-top: 300px;
 }
+
+.registerForm {
+  margin: auto;
+}
