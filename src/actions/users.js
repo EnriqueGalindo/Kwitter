@@ -1,4 +1,5 @@
 import { domain, jsonHeaders, handleJsonResponse } from "./constants";
+import { push } from "connected-react-router"
 
 // action type constants
 export const GET_USER = "GET_USER";
@@ -61,13 +62,6 @@ export const registerUser = registerData => dispatch => {
     });
 };
 
-export const registerThenGoToProfile = registerData => dispatch => {
-  return dispatch(registerUser(registerData)).then(() =>
-    dispatch(
-      getLoggedInUser({
-        username: registerData.username,
-        password: registerData.password
-      })
-    )
-  );
+export const registerThenGoToHomepage = registerData => dispatch => {
+  return dispatch(registerUser(registerData)).then(() => dispatch(push("/")));
 };
