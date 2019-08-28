@@ -33,9 +33,32 @@ export const getLoggedInUser = () => (dispatch, getState) => {
 };
 
 export const getLoggedInUserProfileInfo = () => dispatch => {
-  return dispatch(getLoggedInUser())
+  return dispatch(getLoggedInUser());
 };
 
+export const EXPAND_IMAGE = "EXPAND_IMAGE";
+export const EXPAND_IMAGE_SUCCESS = "EXPAND_IMAGE_SUCCESS";
+export const EXPAND_IMAGE_FAIL = "EXPAND_IMAGE_FAIL";
+
+export const expandImage = username => dispatch => {
+  dispatch({
+    type: EXPAND_IMAGE
+  });
+
+  return fetch(url + "/" + username + "/picture", {
+    method: "GET",
+    headers: { "Content-Type": "multipart/form-data" }
+  })
+    .then(result => {
+      console.log(result);
+      return dispatch({ type: EXPAND_IMAGE_SUCCESS, payload: result });
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({ type: EXPAND_IMAGE_FAIL, payload: err })
+      );
+    });
+};
 
 export const REGISTER_USER = "REGISTER_USER";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";

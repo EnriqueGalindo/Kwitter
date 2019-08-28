@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getLoggedInUserProfileInfo } from "../actions/users";
-import { logoutThenGoToHomepage as logout, uploadUserPictureThenGetLoggedInUser as uploadPicture } from "../actions";
+import { logoutThenGoToHomepage as logout, uploadUserPictureThenGetLoggedInUser as uploadPicture, expandImage } from "../actions";
 import { Navbar, Button, Card, Form } from "react-bootstrap";
 
 class UserProfile extends Component {
@@ -64,11 +64,11 @@ class UserProfile extends Component {
               <Button variant="danger">Delete</Button>
             </Card.Footer>
           </Card>
+        </div>
           <Form onSubmit={this.handleUploadPicture}>
             <Form.Control name="picture" type="file" />
             <Button type="submit">Upload Picture</Button>
           </Form>
-        </div>
       </>
     );
   }
@@ -82,5 +82,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getLoggedInUserProfileInfo, logout, uploadPicture }
+  { getLoggedInUserProfileInfo, logout, uploadPicture, expandImage }
 )(UserProfile);

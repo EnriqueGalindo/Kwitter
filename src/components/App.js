@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { LoginForm, UserProfile, MessageBoard } from ".";
 import RegisterForm from "./RegisterForm";
+import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
   render() {
@@ -17,4 +18,3 @@ class App extends Component {
 }
 
 export default App;
-

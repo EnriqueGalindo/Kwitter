@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {postMessage} from "../actions"
 import { getMessages, likeMessage } from "../actions";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 class MessageBoard extends Component {
   state = {message: ""}
@@ -16,62 +20,76 @@ handleChange = (event) => {
     console.log(this.props.messages);
     return (
       <>
-        <section>
-          <div>
-            <div className="section">
-              <div className="container">
-                <h1 className="title is-1 has-text-centered">
-                  {" "}
-                  Message Board{" "}
-                </h1>
-              </div>
-            </div>
-            <textarea onChange={this.handleChange}>
-            
-            </textarea>
-            <button onClick={() => this.props.postMessage(this.state.message)}>submit</button>
+        <Container>
+          <Row>
+            <Col>
+              {" "}
+              <h1 className="text-center"> Message Board</h1>
+            </Col>
+          </Row>
+        </Container>
+        <br></br>
+        <Container>
+          <Col style={{ paddingLeft: 100, paddingRight: 100 }}>
             {this.props.messages.map(message => {
               return (
                 <React.Fragment key={message.id}>
-                  <div className="section">
-                    <div className="container">
-                      <div className="message is-primary">
-                        <div
-                          id="message"
-                          className="message-header is-clearfix"
+                  <Container
+                    style={{
+                      borderRadius: "50px"
+                    }}
+                  >
+                    <Row style={{ backgroundColor: "turquoise" }}>
+                      <Col style={{ borderRadius: "5px" }}>
+                        <img
+                          id="defaultImg"
+                          src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces"
+                          alt="Bulma as default"
+                        />
+                      </Col>
+                      <Col>
+                        <h3 className="text-center">{message.username} </h3>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ backgroundColor: "#faffff" }}>
+                      <Col>
+                        {" "}
+                        <h3 className="text-center">{message.text}</h3>
+                      </Col>
+                    </Row>
+
+                    <Row style={{ backgroundColor: "#faffff" }}>
+                      <Col>
+                        <Button
+                          onClick={() => this.props.likeMessage(message.id)}
+                          size="sm"
+                          style={{
+                            color: "black",
+                            backgroundColor: "white",
+                            borderColor: "grey"
+                          }}
                         >
-                          {" "}
-                          <img
-                            id="defaultImg"
-                            src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces"
-                            alt="Bulma as default"
-                          />
-                          <h1 id="messageUsernames">{message.username} </h1>
-                        </div>
+                          {console.log(message)}
 
-                        <div id="message" className="message-body">
-                          {message.text}
-                        </div>
-                        <button className="button" id="likeButton">
-                          {console.log(message.id)}
-                          <div id="like">
-                            Like
-                            {message.likes.map(like => {
-                              onclick = this.props.likeMessage(message.id);
+                          {message.likes.map(like => {
+                            return <p key={like.id}> Like</p>;
+                          })}
+                        </Button>
 
-                              return <p key={like.id}>Liked by: {like.id}</p>;
-                            })}
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                        <span className="icon">
+                          <i className="fa fa-heart" />
+                        </span>
+                        {message.likes.length}
+                      </Col>
+                    </Row>
+                  </Container>
                   <br />
                 </React.Fragment>
               );
             })}
-          </div>
-        </section>
+          </Col>
+        </Container>
       </>
     );
   }
