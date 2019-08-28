@@ -65,3 +65,36 @@ export const registerUser = registerData => dispatch => {
 export const registerThenGoToHomepage = registerData => dispatch => {
   return dispatch(registerUser(registerData)).then(() => dispatch(push("/")));
 };
+
+export const UPLOAD_USER_PICTURE = "UPLOAD_USER_PICTURE"
+export const UPLOAD_USER_PICTURE_SUCCESS = "UPLOAD_USER_PICTURE_SUCCESS"
+export const UPLOAD_USER_PICTURE_FAIL = "UPLOAD_USER_PICTURE_FAIL"
+
+export const uploadUserPicture = formData => (dispatch, getState) => {
+  dispatch({
+    type: UPLOAD_USER_PICTURE
+  })
+
+  const { username, token } = getState().auth.login
+
+  return fetch(url + "/" + username + "/picture", {
+    method: "PUT",
+    headers: { Authorization: "Bearer " + token },
+    body: formData
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({ type: UPLOAD_USER_PICTURE_SUCCESS, payload: result })
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({ type: UPLOAD_USER_PICTURE_FAIL, payload: err })
+      )
+    })
+}
+
+export const uploadUserPictureThenGetLoggedInUser = formData => dispatch => {
+  return dispatch(uploadUserPicture(formData)).then(() =>
+    dispatch(getLoggedInUser())
+  );
+};

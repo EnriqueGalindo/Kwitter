@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getLoggedInUserProfileInfo } from "../actions/users";
-import { logoutThenGoToHomepage as logout } from "../actions";
-import { Navbar, Button, Card } from "react-bootstrap";
+import { logoutThenGoToHomepage as logout, uploadUserPictureThenGetLoggedInUser as uploadPicture } from "../actions";
+import { Navbar, Button, Card, Form } from "react-bootstrap";
 
 class UserProfile extends Component {
   componentDidMount() {
     this.props.getLoggedInUserProfileInfo();
+  }
+
+  handleUploadPicture = e => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    this.props.uploadPicture(formData)
   }
 
   render() {
@@ -46,7 +52,7 @@ class UserProfile extends Component {
                 {this.props.user.username}
               </Card.Subtitle>
             </Card.Header>
-            <Card.Img variant="top" src={this.props.user.pictureId} />
+            <Card.Img variant="top" src={"https://kwitter-api.herokuapp.com" + this.props.user.pictureLocation} />
             <Card.Body>
               <Card.Title>About:</Card.Title>
               <Card.Text>
@@ -58,6 +64,10 @@ class UserProfile extends Component {
               <Button variant="danger">Delete</Button>
             </Card.Footer>
           </Card>
+          <Form onSubmit={this.handleUploadPicture}>
+            <Form.Control name="picture" type="file" />
+            <Button type="submit">Upload Picture</Button>
+          </Form>
         </div>
       </>
     );
@@ -72,5 +82,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getLoggedInUserProfileInfo, logout }
+  { getLoggedInUserProfileInfo, logout, uploadPicture }
 )(UserProfile);

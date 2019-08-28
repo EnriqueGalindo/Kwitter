@@ -1,4 +1,4 @@
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAIL, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL } from "../actions";
+import { GET_USER, GET_USER_SUCCESS, GET_USER_FAIL, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL, LOGOUT_SUCCESS } from "../actions";
 
 const initialState = {
   getUserLoading: false,
@@ -6,7 +6,10 @@ const initialState = {
   getUserError: null,
   registerUser: {},
   registerUserLoading: false,
-  registerUserError: null
+  registerUserError: null,
+  uploadUserPictureLoading: false,
+  uploadUserPicture: {},
+  uploadUserPictureError: null
 };
 
 export default (state = initialState, action) => {
@@ -46,6 +49,10 @@ export default (state = initialState, action) => {
         ...state,
         registerUserError: action.payload,
         registerUserLoading: false
+      }
+    case LOGOUT_SUCCESS:
+      return {
+        ...initialState
       }
     default:
       return state;
