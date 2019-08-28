@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+<<<<<<< HEAD
+import { getMessages } from "../actions";
 import {postMessage} from "../actions"
+=======
 import { getMessages, likeMessage } from "../actions";
 
+>>>>>>> fdc5186735bea0c905db3440f0d59febbd1f88cb
 class MessageBoard extends Component {
   state = {message: ""}
   componentDidMount() {
@@ -86,9 +90,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getMessages,
-  postMessage,
+<<<<<<< HEAD
+  postMessage
   //likeMessage
+=======
   likeMessage
+>>>>>>> fdc5186735bea0c905db3440f0d59febbd1f88cb
 };
 
 export default connect(
