@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginThenGoToUserProfile as login } from "../actions";
 import Spinner from "react-spinkit";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class LoginForm extends Component {
   state = { username: "", password: "" };
