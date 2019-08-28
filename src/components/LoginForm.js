@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginThenGoToUserProfile as login } from "../actions";
 import Spinner from "react-spinkit";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class LoginForm extends Component {
   state = { username: "", password: "" };
@@ -20,7 +20,7 @@ class LoginForm extends Component {
     const { isLoading, err } = this.props;
     return (
       <>
-        <figure class="image container is-128x128">
+        <figure className="image container is-128x128">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
             alt="Capsule Corp"
