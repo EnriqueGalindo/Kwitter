@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { registerThenGoToHomepage } from "../actions/users";
 import Spinner from "react-spinkit";
-import { Form, Button, Row } from "react-bootstrap";
+import { Form, Button, Row, ButtonToolbar } from "react-bootstrap";
 
 export class RegisterUser extends Component {
   state = {
@@ -32,7 +32,11 @@ export class RegisterUser extends Component {
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossOrigin="anonymous"
         />
-        <Form className="registerForm" onSubmit={this.handleSubmit} style={{ width: "500px" }}>
+        <Form
+          className="registerForm"
+          onSubmit={this.handleSubmit}
+          style={{ width: "500px" }}
+        >
           <Form.Group as={Row}>
             <Form.Label column sm={2}>
               Name
@@ -71,9 +75,12 @@ export class RegisterUser extends Component {
               required
             />
           </Form.Group>
-          <Button variant="info" type="submit" disabled={isLoading}>
-            Submit
-          </Button>
+          <ButtonToolbar style={{ display: "flex", justifyContent: "space-around" }}>
+            <Button type="submit" disabled={isLoading} style={{ backgroundColor: "turquoise" }}>
+              Submit
+            </Button>
+            <Button href="/" style={{ backgroundColor: "turquoise" }}>Cancel</Button>
+          </ButtonToolbar>
         </Form>
         {isLoading && <Spinner name="circle" color="blue" />}
         {err && <p style={{ color: "red" }}>{err}</p>}
