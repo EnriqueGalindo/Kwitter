@@ -76,16 +76,21 @@ class LoginForm extends Component {
                 >
                   <Row>
                     <Col>
-                      <Button type="submit" disabled={isLoading} size="lg">
+                      <button type="submit" disabled={isLoading} size="lg">
                         Login
-                      </Button>
-                    </Col>
-                    <Col>
+                      </button>
+
                       <Link to="/register">
-                        <Button size="lg" disabled={isLoading}>
-                          Create New Profile
-                        </Button>
-                        <br />
+                        <div className="is-centered">
+                          <button
+                            className="button is-large"
+                            id="newProfile"
+                            disabled={isLoading}
+                          >
+                            Create New Profile
+                          </button>
+                        </div>
+                        <br></br>
                       </Link>
                       {isLoading && <Spinner name="circle" color="blue" />}
                       {err && <p style={{ color: "red" }}>{err}</p>}

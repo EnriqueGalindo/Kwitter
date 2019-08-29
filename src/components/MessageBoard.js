@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { postMessage, getMessages, likeMessage, logoutThenGoToHomepage as logout } from "../actions";
+import { postMessage, getMessages, likeMessage, logoutThenGoToHomepage as logout, deleteMessage } from "../actions";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,7 +17,6 @@ class MessageBoard extends Component {
     this.setState({ message: event.target.value });
   };
   render() {
-    console.log(this.props.messages);
     return (
       <>
       {/*navbar component*/}
@@ -52,10 +51,16 @@ class MessageBoard extends Component {
             </Col>
           </Row>
         </Container>
+        <textarea onChange={this.handleChange}>
+
+            </textarea>
+            <button onClick={() => this.props.postMessage(this.state.message)}>submit</button>
+        <br></br>
         <br />
         <Container>
           <Col style={{ paddingLeft: 100, paddingRight: 100 }}>
             {this.props.messages.map(message => {
+              const userDeletable = message.username === this.props.username;
               return (
                 <React.Fragment key={message.id}>
                   <Container
@@ -79,7 +84,10 @@ class MessageBoard extends Component {
 
                     <Row style={{ backgroundColor: "#faffff" }}>
                       <Col>
-                        <Button
+                      </Col>
+                      </Row>
+                      </Container>
+                      <Button
                           onClick={() => this.props.likeMessage(message.id)}
                           size="sm"
                           style={{
@@ -88,27 +96,23 @@ class MessageBoard extends Component {
                             borderColor: "grey"
                           }}
                         >
-                          {console.log(message)}
-
-                          {message.likes.map(like => {
-                            return <p key={like.id}> Like</p>;
-                          })}
+                          Like
                         </Button>
+                          {message.likes.map(like => <p key={like.id}>Liked by: {like.id}</p>)}
+                          {userDeletable && (
+                          <button onClick={() => this.props.deleteMessage(message.id)}>
+                            Delete
+                          </button>
+                          )}
 
-                        <span className="icon">
-                          <i className="fa fa-heart" />
-                        </span>
-                        {message.likes.length}
-                      </Col>
-                    </Row>
-                  </Container>
-                  <br />
-                </React.Fragment>
-              );
+                            
+                      </React.Fragment>
+                      )
+                       
+                          
             })}
           </Col>
         </Container>
-      </>
     );
   }
 }
@@ -120,16 +124,29 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  getMessages,
-  postMessage,
-  //likeMessage
-  likeMessage,
-  logout
-};
+// const mapDispatchToProps = {
+//   getMessages,
+//   postMessage,
+//   likeMessage,
+//   deleteMessage
+// };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getMessages: () => dispatch(getMessages()),
+    postMessage: (text) => dispatch(postMessage({text})),
+    likeMessage: () => dispatch(likeMessage()),
+    deleteMessage: (id) => dispatch(deleteMessage(id)),
+    logout
+  }
+}
 
 export default connect(
-  mapStateToProps,
-  //{ getMessages }
+  state => {
+    return {
+      username: state.auth.login.username,
+      messages: state.messages.getMessages
+    };
+  },
   mapDispatchToProps
 )(MessageBoard);
