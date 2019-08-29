@@ -64,7 +64,7 @@ class LoginForm extends Component {
                         Login
                       </button>
 
-                      <Link to="/register">
+                      <NavLink to="/register">
                         <div className="is-centered">
                           <button
                             className="button is-large"
@@ -75,7 +75,7 @@ class LoginForm extends Component {
                           </button>
                         </div>
                         <br></br>
-                      </Link>
+                      </NavLink>
                       {isLoading && <Spinner name="circle" color="blue" />}
                       {err && <p style={{ color: "red" }}>{err}</p>}
                     </div>

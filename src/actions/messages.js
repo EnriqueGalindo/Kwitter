@@ -64,3 +64,32 @@ const token = getState ().auth.login.token
       );
     });
 };
+export const DELETE_MESSAGE = "DELETE_MESSAGE";
+export const DELETE_MESSAGE_SUCCESS = "DELETE_MESSAGE_SUCCESS";
+export const DELETE_MESSAGE_FAIL = "DELETE_MESSAGE_FAIL";
+
+export const deleteMessage = messageId => (dispatch, getState) =>{ dispatch( {
+    type: DELETE_MESSAGE
+})
+ const {token} = getState().auth.login;
+
+  return fetch(url + "/" + messageId, {
+    method: "Delete",
+    headers: {Authorization: "bearer" + token, ...jsonHeaders}
+  })
+  .then(handleJsonResponse)
+  .then(result => {
+      return dispatch({
+          type: DELETE_MESSAGE_SUCCESS,
+          payload: result
+      })
+  })
+  .catch(err =>{
+      return Promise.reject(
+          dispatch ({
+            type: DELETE_MESSAGE_SUCCESS,
+            payload: err
+          })
+      )
+  })
+}

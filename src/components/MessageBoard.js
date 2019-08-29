@@ -1,21 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-<<<<<<< HEAD
 import { getMessages } from "../actions";
-import {postMessage} from "../actions"
-=======
-import { getMessages, likeMessage } from "../actions";
-
->>>>>>> fdc5186735bea0c905db3440f0d59febbd1f88cb
+import { postMessage } from "../actions";
+import { likeMessage } from "../actions";
+import { deleteMessage } from "../actions";
 class MessageBoard extends Component {
-  state = {message: ""}
+  state = { message: "" }
   componentDidMount() {
     this.props.getMessages();
     //this.props.likeMessage();
   }
-handleChange = (event) => {
-  this.setState({message: event.target.value})
-}
+  handleChange = (event) => {
+    this.setState({ message: event.target.value })
+  }
   render() {
     console.log(this.props.messages);
     return (
@@ -31,10 +28,11 @@ handleChange = (event) => {
               </div>
             </div>
             <textarea onChange={this.handleChange}>
-            
+
             </textarea>
             <button onClick={() => this.props.postMessage(this.state.message)}>submit</button>
             {this.props.messages.map(message => {
+              const userDeletable = message.username === this.propsusername;
               return (
                 <React.Fragment key={message.id}>
                   <div className="section">
@@ -65,6 +63,12 @@ handleChange = (event) => {
 
                               return <p key={like.id}>Liked by: {like.id}</p>;
                             })}
+                            {userDeletable && (
+                              <button onClick={event => this.props.deleteMessage(message.id)}>
+                                Delete
+                            </button>
+                            )}
+                            })
                           </div>
                         </button>
                       </div>
@@ -90,15 +94,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getMessages,
-<<<<<<< HEAD
-  postMessage
-  //likeMessage
-=======
+  postMessage,
   likeMessage
->>>>>>> fdc5186735bea0c905db3440f0d59febbd1f88cb
 };
 
 export default connect(
+  state => {
+    return {
+      username: state.auth.login.username
+    };
+  },
+  {deleteMessage},
   mapStateToProps,
   //{ getMessages }
   mapDispatchToProps
