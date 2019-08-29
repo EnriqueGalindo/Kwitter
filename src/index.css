@@ -13,13 +13,10 @@ code {
     monospace;
 }
 
-.profileCard {
+#profileContainer {
   display: flex;
-  width: auto;
-  margin: auto;
-  height: 50px;
-  font-size: 25px;
-  border-radius: 10px;
+  justify-content: center;
+  margin-top: 200px;
 }
 
 form {

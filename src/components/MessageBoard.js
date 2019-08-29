@@ -1,26 +1,48 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { deleteMessage } from "../actions";
-import {postMessage} from "../actions"
-import { getMessages, likeMessage } from "../actions";
+import { postMessage, getMessages, likeMessage, logoutThenGoToHomepage as logout, deleteMessage } from "../actions";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Navbar from "react-bootstrap/Navbar";
 
 class MessageBoard extends Component {
-  state = { message: "" }
+  state = { message: "" };
   componentDidMount() {
     this.props.getMessages();
     //this.props.likeMessage();
   }
-  handleChange = (event) => {
-    this.setState({ message: event.target.value })
-  }
+  handleChange = event => {
+    this.setState({ message: event.target.value });
+  };
   render() {
     return (
-        <section>
-            
+      <>
+      {/*navbar component*/}
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/profile"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Profile
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
+        <br />
+        <br />
+        {/*messages*/}
         <Container>
           <Row>
             <Col>
@@ -34,6 +56,7 @@ class MessageBoard extends Component {
             </textarea>
             <button onClick={() => this.props.postMessage(this.state.message)}>submit</button>
         <br></br>
+        <br />
         <Container>
           <Col style={{ paddingLeft: 100, paddingRight: 100 }}>
             {this.props.messages.map(message => {
@@ -46,15 +69,9 @@ class MessageBoard extends Component {
                     }}
                   >
                     <Row style={{ backgroundColor: "turquoise" }}>
-                      <Col style={{ borderRadius: "5px" }}>
-                        <img
-                          id="defaultImg"
-                          src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces"
-                          alt="Bulma as default"
-                        />
-                      </Col>
+                      <Col style={{ borderRadius: "5px" }} />
                       <Col>
-                        <h3 className="text-center">{message.username} </h3>
+                        <h3 className="text-center">{message.username}</h3>
                       </Col>
                     </Row>
 
@@ -96,15 +113,14 @@ class MessageBoard extends Component {
             })}
           </Col>
         </Container>
-      </section>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
-    messages: state.messages.getMessages
+    messages: state.messages.getMessages,
+    user: state.users.getUser
   };
 };
 
@@ -120,7 +136,8 @@ const mapDispatchToProps = dispatch => {
     getMessages: () => dispatch(getMessages()),
     postMessage: (text) => dispatch(postMessage({text})),
     likeMessage: () => dispatch(likeMessage()),
-    deleteMessage: (id) => dispatch(deleteMessage(id))
+    deleteMessage: (id) => dispatch(deleteMessage(id)),
+    logout
   }
 }
 
