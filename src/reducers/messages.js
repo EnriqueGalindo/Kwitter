@@ -4,7 +4,10 @@ import {
   DISPLAY_MESSAGE_BOARD_SUCCESS,
   DELETE_MESSAGE,
   DELETE_MESSAGE_SUCCESS,
-  DELETE_MESSAGE_FAIL
+  DELETE_MESSAGE_FAIL,
+  POST_MESSAGE,
+  POST_MESSAGE_SUCCESS,
+  POST_MESSAGE_FAIL
 } from "../actions";
 
 const initialState = {
@@ -14,7 +17,8 @@ const initialState = {
   getUserMessages: [],
   deleteMessageError: null,
   deleteMessageLoading: false,
-  
+  createMessageError: null,
+  createMessageLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -64,6 +68,27 @@ export default (state = initialState, action) => {
           deleteMessageLoading: false,
           deleteMessageError: action.payload
         }
+          case POST_MESSAGE:
+            return {
+              ...state,
+              creatMessagesLoading: true,
+              createMessagesError: null
+            };
+      
+          case POST_MESSAGE_FAIL:
+            return {
+              ...state,
+              createMessageLoading: false,
+              createMessageError: action.payload
+            };
+      
+          case POST_MESSAGE_SUCCESS:
+            return {
+              ...state,
+              createMessageLoading: false,
+              getUserMessages:[ action.payload.message, ...state.getUserMessages],
+              getMessages:[ action.payload.message, ...state.getUserMessages]
+            }
     default:
       return state;
   }

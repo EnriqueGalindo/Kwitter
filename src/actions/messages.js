@@ -40,11 +40,11 @@ export const postMessage = (message) => (dispatch, getState) => {
   dispatch({
     type: POST_MESSAGE
   });
-const token = getState ().auth.login.token
+const token = getState().auth.login.token
   return fetch(url, {
     method: "POST",
     headers:  {Authorization: "Bearer " + token, ...jsonHeaders},
-    body: JSON.stringify({ text: message }) 
+    body: JSON.stringify(message) 
   })
     .then(handleJsonResponse)
     .then(result => {
@@ -74,8 +74,8 @@ export const deleteMessage = messageId => (dispatch, getState) =>{ dispatch( {
  const {token} = getState().auth.login;
 
   return fetch(url + "/" + messageId, {
-    method: "Delete",
-    headers: {Authorization: "bearer" + token, ...jsonHeaders}
+    method: "DELETE",
+    headers: {Authorization: `bearer ${token}`, ...jsonHeaders}
   })
   .then(handleJsonResponse)
   .then(result => {
@@ -87,7 +87,7 @@ export const deleteMessage = messageId => (dispatch, getState) =>{ dispatch( {
   .catch(err =>{
       return Promise.reject(
           dispatch ({
-            type: DELETE_MESSAGE_SUCCESS,
+            type: DELETE_MESSAGE_FAIL,
             payload: err
           })
       )

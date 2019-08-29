@@ -13,8 +13,44 @@ code {
     monospace;
 }
 
-#cardContainer {
-  width: 500px;
-  height: 500px;
-  margin-top: 200px;
+.profileCard {
+  display: flex;
+  width: auto;
+  margin: auto;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 10px;
+}
+
+form {
+  width: auto;
+  margin: auto;
+}
+
+button {
+  border-radius: 10px;
+}
+
+#message-header {
+  background-color: aqua;
+}
+
+#likeButton {
+  left: 450px;
+}
+
+#container1 {
+  position: relative;
+}
+
+#innerContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 300px;
+}
+
+.registerForm {
+  margin: auto;
 }

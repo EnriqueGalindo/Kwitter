@@ -1,9 +1,17 @@
-import { LOGIN, LOGIN_SUCCESS, LOGIN_FAIL } from "../actions";
+import {
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  LOGOUT_SUCCESS
+} from "../actions";
 
 const initialState = {
   loginLoading: false,
   login: null,
-  loginError: null
+  loginError: null,
+  logoutLoading: false,
+  logoutError: null
 };
 
 const getInitState = () => {
@@ -19,10 +27,25 @@ export default (state = getInitState(), action) => {
         loginError: null
       };
     case LOGIN_SUCCESS:
-      return { ...state, login: action.payload, loginLoading: false };
+      return { 
+        ...state, 
+        login: action.payload, 
+        loginLoading: false 
+      };
     case LOGIN_FAIL:
-      return { ...state, loginError: action.payload, loginLoading: false };
-
+      return { 
+        ...state, 
+        loginError: action.payload, 
+        loginLoading: false 
+      };
+    case LOGOUT:
+      return {
+        ...state
+      };
+    case LOGOUT_SUCCESS:
+      return {
+        ...initialState
+      };
     default:
       return state;
   }

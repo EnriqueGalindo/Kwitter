@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginThenGoToUserProfile as login } from "../actions";
 import Spinner from "react-spinkit";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+import Image from "react-bootstrap/Image";
 
 class LoginForm extends Component {
   state = { username: "", password: "" };
@@ -20,23 +27,27 @@ class LoginForm extends Component {
     const { isLoading, err } = this.props;
     return (
       <>
-        <figure class="image container is-128x128">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
-            alt="Capsule Corp"
-          ></img>
-        </figure>
-        <div className="container" id="container1">
-          <div className="section">
-            <div className="container">
-              <div className="message">
-                <div className="container" id="innerContainer">
-                  <h1 className="is-size-1 has-text-white has-text-centered">
-                    Login
-                  </h1>
-                  <form onSubmit={this.handleLogin}>
-                    <div className="field">
-                      <input
+        <Image
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+          alt="Capsule Corp"
+          style={{ width: 100, height: 100 }}
+        />
+
+        <Container>
+          <br />
+          <Col style={{ backgroundColor: "turquoise", borderRadius: "5px" }}>
+            <Form onSubmit={this.handleLogin}>
+              <Container>
+                <Row>
+                  <Col style={{ color: "white" }}>
+                    <h1 className="text-center">Login</h1>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col md={{ span: 6, offset: 3 }}>
+                    <Form.Group controlId="exampleForm.ControlInput1">
+                      <Form.Control
                         type="text"
                         name="username"
                         autoFocus
@@ -44,27 +55,32 @@ class LoginForm extends Component {
                         onChange={this.handleChange}
                         placeholder="Enter Username"
                       />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-                      <br></br>
-
-                      <input
-                        type="password"
-                        name="password"
-                        required
-                        onChange={this.handleChange}
-                        placeholder="Enter Password"
-                      />
-
-                      <button
-                        type="submit"
-                        disabled={isLoading}
-                        className="button is-large"
-                        id="login"
-                      >
+                <Row>
+                  <Col md={{ span: 6, offset: 3 }}>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      required
+                      onChange={this.handleChange}
+                      placeholder="Enter Password"
+                    />
+                  </Col>
+                </Row>
+                <br />
+                <ButtonToolbar
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <Row>
+                    <Col>
+                      <button type="submit" disabled={isLoading} size="lg">
                         Login
                       </button>
 
-                      <NavLink to="/register">
+                      <Link to="/register">
                         <div className="is-centered">
                           <button
                             className="button is-large"
@@ -75,19 +91,17 @@ class LoginForm extends Component {
                           </button>
                         </div>
                         <br></br>
-                      </NavLink>
+                      </Link>
                       {isLoading && <Spinner name="circle" color="blue" />}
                       {err && <p style={{ color: "red" }}>{err}</p>}
-                    </div>
-                  </form>
-                  <br></br>
-
-                  <div className="control"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                      <br />
+                    </Col>
+                  </Row>
+                </ButtonToolbar>
+              </Container>
+            </Form>
+          </Col>
+        </Container>
       </>
     );
   }
