@@ -141,28 +141,28 @@ class MessageBoard extends Component {
 //   };
 // };
 
-const mapDispatchToProps = {
-  getMessages,
-  postMessage,
-  likeMessage,
-  deleteMessage,
-  logout
-};
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getMessages: () => dispatch(getMessages()),
-//     postMessage: text => dispatch(postMessage({ text })),
-//     likeMessage: () => dispatch(likeMessage()),
-//     deleteMessage: id => dispatch(deleteMessage(id))
-//   };
+// const mapDispatchToProps = {
+//   getMessages,
+//   postMessage,
+//   likeMessage,
+//   logout
 // };
+
+ const mapDispatchToProps = dispatch => {
+  return {
+     getMessages: () => dispatch(getMessages()),
+     postMessage: text => dispatch(postMessage({ text })),
+    likeMessage: () => dispatch(likeMessage()),
+     deleteMessage: id => dispatch(deleteMessage(id))
+   };
+ };
 
 export default connect(
   state => {
     return {
       user: state.users.getUser,
-      messages: state.messages.getMessages
+      messages: state.messages.getMessages,
+      username: state.auth.login.username
     };
   },
   mapDispatchToProps
