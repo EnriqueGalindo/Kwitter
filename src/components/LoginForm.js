@@ -72,24 +72,21 @@ class LoginForm extends Component {
                 </Row>
                 <br />
                 <ButtonToolbar
-                  style={{ display: "flex", justifyContent: "center" }}
+                  style={{ display: "flex", justifyContent: "space-around" }}
                 >
                   <Row>
                     <Col>
-                      <button type="submit" disabled={isLoading} size="lg">
+                      <Button type="submit" disabled={isLoading}>
                         Login
-                      </button>
+                      </Button>
 
                       <Link to="/register">
-                        <div className="is-centered">
-                          <button
-                            className="button is-large"
+                          <Button
                             id="newProfile"
                             disabled={isLoading}
                           >
                             Create New Profile
-                          </button>
-                        </div>
+                          </Button>
                         <br></br>
                       </Link>
                       {isLoading && <Spinner name="circle" color="blue" />}

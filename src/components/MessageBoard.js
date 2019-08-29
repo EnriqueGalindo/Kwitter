@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { postMessage, getMessages, likeMessage, logoutThenGoToHomepage as logout, deleteMessage } from "../actions";
+import {
+  postMessage,
+  getMessages,
+  likeMessage,
+  logoutThenGoToHomepage as logout,
+  deleteMessage
+} from "../actions";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
+import { Form } from "react-bootstrap";
 
 class MessageBoard extends Component {
   state = { message: "" };
@@ -19,7 +26,7 @@ class MessageBoard extends Component {
   render() {
     return (
       <>
-      {/*navbar component*/}
+        {/*navbar component*/}
         <Navbar className="bg-dark justify-content-between" fixed="top">
           <Navbar.Brand>
             <img
@@ -42,6 +49,9 @@ class MessageBoard extends Component {
         </Navbar>
         <br />
         <br />
+        <br />
+        <br />
+        <br />
         {/*messages*/}
         <Container>
           <Row>
@@ -51,11 +61,18 @@ class MessageBoard extends Component {
             </Col>
           </Row>
         </Container>
-        <textarea onChange={this.handleChange}>
-
-            </textarea>
-            <button onClick={() => this.props.postMessage(this.state.message)}>submit</button>
-        <br></br>
+        <br />
+        <br />
+        <Container style={{ width: "500px" }} onChange={this.handleChange}>
+            <Form.Control
+              
+              placeholder="Write a Message"
+            />
+            <Button onClick={() => this.props.postMessage(this.state.message)}>
+              submit
+            </Button>
+        </Container>
+        <br />
         <br />
         <Container>
           <Col style={{ paddingLeft: 100, paddingRight: 100 }}>
@@ -83,68 +100,68 @@ class MessageBoard extends Component {
                     </Row>
 
                     <Row style={{ backgroundColor: "#faffff" }}>
-                      <Col>
-                      </Col>
-                      </Row>
-                      </Container>
-                      <Button
-                          onClick={() => this.props.likeMessage(message.id)}
-                          size="sm"
-                          style={{
-                            color: "black",
-                            backgroundColor: "white",
-                            borderColor: "grey"
-                          }}
-                        >
-                          Like
-                        </Button>
-                          {message.likes.map(like => <p key={like.id}>Liked by: {like.id}</p>)}
-                          {userDeletable && (
-                          <button onClick={() => this.props.deleteMessage(message.id)}>
-                            Delete
-                          </button>
-                          )}
-
-                            
-                      </React.Fragment>
-                      )
-                       
-                          
+                      <Col />
+                    </Row>
+                  </Container>
+                  <Button
+                    onClick={() => this.props.likeMessage(message.id)}
+                    size="sm"
+                    style={{
+                      color: "black",
+                      backgroundColor: "white",
+                      borderColor: "grey"
+                    }}
+                  >
+                    Like
+                  </Button>
+                  {message.likes.map(like => (
+                    <p key={like.id}>Liked by: {like.id}</p>
+                  ))}
+                  {userDeletable && (
+                    <Button
+                      onClick={() => this.props.deleteMessage(message.id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </React.Fragment>
+              );
             })}
           </Col>
         </Container>
+      </>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    messages: state.messages.getMessages,
-    user: state.users.getUser
-  };
-};
-
-// const mapDispatchToProps = {
-//   getMessages,
-//   postMessage,
-//   likeMessage,
-//   deleteMessage
+// const mapStateToProps = state => {
+//   return {
+//     messages: state.messages.getMessages,
+//     user: state.users.getUser
+//   };
 // };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getMessages: () => dispatch(getMessages()),
-    postMessage: (text) => dispatch(postMessage({text})),
-    likeMessage: () => dispatch(likeMessage()),
-    deleteMessage: (id) => dispatch(deleteMessage(id)),
-    logout
-  }
-}
+const mapDispatchToProps = {
+  getMessages,
+  postMessage,
+  likeMessage,
+  deleteMessage,
+  logout
+};
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     getMessages: () => dispatch(getMessages()),
+//     postMessage: text => dispatch(postMessage({ text })),
+//     likeMessage: () => dispatch(likeMessage()),
+//     deleteMessage: id => dispatch(deleteMessage(id))
+//   };
+// };
 
 export default connect(
   state => {
     return {
-      username: state.auth.login.username,
+      user: state.users.getUser,
       messages: state.messages.getMessages
     };
   },
