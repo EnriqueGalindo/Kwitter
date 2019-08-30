@@ -67,9 +67,9 @@ class MessageBoard extends Component {
         <br />
         <Container></Container>
         <Container style={{ width: "500px" }} onChange={this.handleChange}>
-          <Form.Control placeholder="Write a Message" />
+          <Form.Control placeholder="Capsulize your thoughts!" />
           <Button onClick={() => this.props.postMessage(this.state.message)}>
-            submit
+            Capsulize!
           </Button>
         </Container>
         <br />
@@ -145,6 +145,12 @@ class MessageBoard extends Component {
                     {userDeletable && (
                       <Button
                         onClick={() => this.props.deleteMessage(message.id)}
+                        size="sm"
+                      style={{
+                        color: "black",
+                        backgroundColor: "white",
+                        borderColor: "grey"
+                      }}
                       >
                         Delete
                       </Button>
@@ -180,7 +186,8 @@ const mapDispatchToProps = dispatch => {
     postMessage: text => dispatch(postMessage({ text })),
     likeMessage: id => dispatch(likeMessage(id)),
     deleteMessage: id => dispatch(deleteMessage(id)),
-    getUsername: () => dispatch(getUsername())
+    getUsername: () => dispatch(getUsername()),
+    logout: () => dispatch(logout())
   };
 };
 

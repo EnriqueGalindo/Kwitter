@@ -4,7 +4,8 @@ import { getLoggedInUserProfileInfo } from "../actions/users";
 import {
   logoutThenGoToHomepage as logout,
   uploadUserPictureThenGetLoggedInUser as uploadPicture,
-  viewImage
+  viewImage,
+  deleteUser
 } from "../actions";
 import {
   Navbar,
@@ -24,6 +25,12 @@ class UserProfile extends Component {
     e.preventDefault();
     const formData = new FormData(e.target);
     this.props.uploadPicture(formData);
+  };
+
+  handleDeleteUser = e => {
+    if (window.confirm("Do you really want to do this?")) {
+      this.props.deleteUser();
+    }
   };
 
   render() {
@@ -83,7 +90,9 @@ class UserProfile extends Component {
                 style={{ display: "flex", justifyContent: "space-around" }}
               >
                 <Button variant="warning">Edit</Button>
-                <Button variant="danger">Delete</Button>
+                <Button variant="danger" onClick={this.handleDeleteUser}>
+                  Delete
+                </Button>
               </ButtonToolbar>
             </Card.Footer>
           </Card>
@@ -107,5 +116,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getLoggedInUserProfileInfo, logout, uploadPicture, viewImage }
+  { getLoggedInUserProfileInfo, logout, uploadPicture, viewImage, deleteUser }
 )(UserProfile);
