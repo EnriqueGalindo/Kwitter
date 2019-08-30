@@ -158,3 +158,35 @@ export const viewImage = function() {
     dispatch(push("/profile/pic"));
   };
 };
+
+export const DELETE_USER = "DELETE_USER"
+export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS"
+export const DELETE_USER_FAIL = "DELETE_USER_FAIL"
+
+export const deleteUser = () => (dispatch, getState) => {
+  dispatch({
+    type: DELETE_USER
+  })
+
+  const { username, token } = getState().auth.login;
+
+  return fetch(url + "/" + username, {
+    method: "DELETE",
+    headers: { Authorization: "Bearer " + token }
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({
+        type: DELETE_USER_SUCCESS,
+        payload: result
+      })
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({
+          type: DELETE_USER_FAIL,
+          payload: err
+        })
+      )
+    })
+}

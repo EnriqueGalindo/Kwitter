@@ -63,7 +63,8 @@ export const logout = () => (dispatch, getState) => {
 };
 
 export const logoutThenGoToHomepage= () => dispatch => {
-  return dispatch(logout()).then(() => dispatch(push("/")));
+  dispatch(logout());
+  dispatch(push("/"))
 };
 
 //user flow
