@@ -20,7 +20,10 @@ const initialState = {
   registerUserError: null,
   uploadUserPictureLoading: false,
   uploadUserPicture: {},
-  uploadUserPictureError: null
+  uploadUserPictureError: null,
+  getUsername: {},
+  getUsernameLoading: false,
+  getUsernameError: null
 };
 
 export default (state = initialState, action) => {
