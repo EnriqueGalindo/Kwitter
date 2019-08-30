@@ -185,7 +185,8 @@ const mapDispatchToProps = dispatch => {
     postMessage: text => dispatch(postMessage({ text })),
     likeMessage: id => dispatch(likeMessage(id)),
     deleteMessage: id => dispatch(deleteMessage(id)),
-    getUsername: () => dispatch(getUsername())
+    getUsername: () => dispatch(getUsername()),
+    logout: () => dispatch(logout())
   };
 };
 
