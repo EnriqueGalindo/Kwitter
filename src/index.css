@@ -13,8 +13,41 @@ code {
     monospace;
 }
 
-.profileCard {
+#profileContainer {
   display: flex;
   justify-content: center;
+  margin-top: 200px;
+}
+
+form {
+  width: auto;
+  margin: auto;
+}
+
+button {
+  border-radius: 10px;
+}
+
+#message-header {
+  background-color: aqua;
+}
+
+#likeButton {
+  left: 450px;
+}
+
+#container1 {
+  position: relative;
+}
+
+#innerContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-top: 300px;
+}
+
+.registerForm {
+  margin: auto;
 }

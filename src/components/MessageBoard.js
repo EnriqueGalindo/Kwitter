@@ -1,98 +1,169 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-
-import { getMessages, likeMessage } from "../actions";
+import {
+  postMessage,
+  getMessages,
+  likeMessage,
+  logoutThenGoToHomepage as logout,
+  deleteMessage,
+  getUsername
+} from "../actions";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Navbar from "react-bootstrap/Navbar";
+import { Form } from "react-bootstrap";
 
 
 class MessageBoard extends Component {
-  state = {message: ""}
+  state = { message: "" };
   componentDidMount() {
     this.props.getMessages();
-    //this.props.likeMessage();
   }
-handleChange = (event) => {
-  this.setState({message: event.target.value})
-}
+  handleChange = event => {
+    this.setState({ message: event.target.value });
+  };
   render() {
-    console.log(this.props.messages);
     return (
       <>
-        <section>
-          <div>
-            <div className="section">
-              <div className="container">
-                <h1 className="title is-1 has-text-centered">
-                  {" "}
-                  Message Board{" "}
-                </h1>
-              </div>
-            </div>
-            <textarea onChange={this.handleChange}>
-            
-            </textarea>
-            <button onClick={() => this.props.postMessage(this.state.message)}>submit</button>
+        {/*navbar component*/}
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/profile"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Profile
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        {/*messages*/}
+        <Container>
+          <Row>
+            <Col>
+              {" "}
+              <h1 className="text-center"> Message Board</h1>
+            </Col>
+          </Row>
+        </Container>
+        <br />
+        <br />
+        <Container style={{ width: "500px" }} onChange={this.handleChange}>
+          <Form.Control placeholder="Write a Message" />
+          <Button onClick={() => this.props.postMessage(this.state.message)}>
+            submit
+          </Button>
+        </Container>
+        <br />
+        <br />
+        <Container>
+          <Col style={{ paddingLeft: 100, paddingRight: 100 }}>
             {this.props.messages.map(message => {
+              const userDeletable = message.username === this.props.username;
               return (
                 <React.Fragment key={message.id}>
-                  <div className="section">
-                    <div className="container">
-                      <div className="message is-primary">
-                        <div
-                          id="message"
-                          className="message-header is-clearfix"
-                        >
-                          {" "}
-                          <img
-                            id="defaultImg"
-                            src="https://imgix.ranker.com/user_node_img/50088/1001747365/original/protect-from-daddy-and-_39_s-scary-face-photo-u1?w=650&q=50&fm=pjpg&fit=crop&crop=faces"
-                            alt="Bulma as default"
-                          />
-                          <h1 id="messageUsernames">{message.username} </h1>
-                        </div>
+                  <Container
+                    style={{
+                      borderRadius: "50px"
+                    }}
+                  >
+                    <Row style={{ backgroundColor: "turquoise" }}>
+                      <Col style={{ borderRadius: "5px" }} />
+                      <Col>
+                        <h3 className="text-center">{message.username}</h3>
+                      </Col>
+                    </Row>
 
-                        <div id="message" className="message-body">
-                          {message.text}
-                        </div>
-                        <button className="button" id="likeButton">
-                          {console.log(message.id)}
-                          <div id="like">
-                            Like
-                            {message.likes.map(like => {
-                              onclick = this.props.likeMessage(message.id);
+                    <Row style={{ backgroundColor: "#faffff" }}>
+                      <Col>
+                        {" "}
+                        <h3 className="text-center">{message.text}</h3>
+                      </Col>
+                    </Row>
 
-                              return <p key={like.id}>Liked by: {like.id}</p>;
-                            })}
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <br />
+                    <Row style={{ backgroundColor: "#faffff" }}>
+                      <Col />
+                    </Row>
+                  </Container>
+                  <Button
+                    onClick={() => this.props.likeMessage(message.id)}
+                    size="sm"
+                    style={{
+                      color: "black",
+                      backgroundColor: "white",
+                      borderColor: "grey"
+                    }}
+                  >
+                    Like
+                  </Button>
+                  {message.likes.map(like => (
+                    <p key={like.id}>Liked by: {like.id}</p>
+                  ))}
+                  {userDeletable && (
+                    <Button
+                      onClick={() => this.props.deleteMessage(message.id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </React.Fragment>
               );
             })}
-          </div>
-        </section>
+          </Col>
+        </Container>
       </>
     );
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
+// const mapStateToProps = state => {
+//   return {
+//     messages: state.messages.getMessages,
+//     user: state.users.getUser
+//   };
+// };
+
+// const mapDispatchToProps = {
+//   getMessages,
+//   postMessage,
+//   likeMessage,
+//   logout
+// };
+
+const mapDispatchToProps = dispatch => {
   return {
-    messages: state.messages.getMessages
+    getMessages: () => dispatch(getMessages()),
+    postMessage: text => dispatch(postMessage({ text })),
+    likeMessage: id => dispatch(likeMessage(id)),
+    deleteMessage: id => dispatch(deleteMessage(id)),
+    getUsername: () => dispatch(getUsername())
   };
 };
 
-const mapDispatchToProps = {
-  getMessages,
-  likeMessage
-};
-
 export default connect(
-  mapStateToProps,
-  //{ getMessages }
+  state => {
+    return {
+      user: state.users.getUser,
+      messages: state.messages.getMessages,
+      username: state.auth.login.username,
+      usernames: state.users.getUsername
+    };
+  },
   mapDispatchToProps
 )(MessageBoard);

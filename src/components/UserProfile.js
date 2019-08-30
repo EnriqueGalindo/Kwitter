@@ -1,13 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getLoggedInUserProfileInfo } from "../actions/users";
-import { logoutThenGoToHomepage as logout } from "../actions";
-import { Navbar, Button, Card } from "react-bootstrap";
+import {
+  logoutThenGoToHomepage as logout,
+  uploadUserPictureThenGetLoggedInUser as uploadPicture,
+  viewImage
+} from "../actions";
+import {
+  Navbar,
+  Button,
+  Card,
+  Form,
+  Container,
+  ButtonToolbar
+} from "react-bootstrap";
 
 class UserProfile extends Component {
   componentDidMount() {
     this.props.getLoggedInUserProfileInfo();
   }
+
+  handleUploadPicture = e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    this.props.uploadPicture(formData);
+  };
 
   render() {
     return (
@@ -19,46 +36,64 @@ class UserProfile extends Component {
           crossOrigin="anonymous"
         />
         {/*navbar component*/}
-        <header>
-          <Navbar className="bg-dark justify-content-between" fixed="top">
-            <Navbar.Brand>
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
-                alt="Capsule Corp"
-                width="75"
-                height="75"
-              />
-            </Navbar.Brand>
-            <Button variant="info" href="/messages">
-              Message Board
-            </Button>
-            <Button variant="warning" onClick={this.props.logout}>
-              Logout
-            </Button>
-          </Navbar>
-        </header>
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/messages"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Message Board
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
         {/*profile card component*/}
-        <div className="profileCard">
+        <Container id="profileContainer">
           <Card bg="info" text="white" style={{ width: "500px" }}>
-            <Card.Header>
+            <Card.Header style={{ backgroundColor: "turquoise" }}>
               <Card.Title>{this.props.user.displayName}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 {this.props.user.username}
               </Card.Subtitle>
             </Card.Header>
-            <Card.Img variant="top" src={this.props.user.pictureId} />
-            <Card.Body>
+            <Card.Img
+              style={{ backgroundColor: "turquoise" }}
+              variant="top"
+              src={
+                "https://kwitter-api.herokuapp.com" +
+                this.props.user.pictureLocation
+              }
+              onClick={this.props.viewImage}
+            />
+            <Card.Body style={{ backgroundColor: "turquoise" }}>
               <Card.Title>About:</Card.Title>
-              <Card.Text>
-                {this.props.user.about}
-              </Card.Text>
+              <Card.Text>{this.props.user.about}</Card.Text>
             </Card.Body>
-            <Card.Footer>
-              <Button variant="warning">Edit</Button>
-              <Button variant="danger">Delete</Button>
+            <Card.Footer style={{ backgroundColor: "turquoise" }}>
+              <ButtonToolbar
+                style={{ display: "flex", justifyContent: "space-around" }}
+              >
+                <Button variant="warning">Edit</Button>
+                <Button variant="danger">Delete</Button>
+              </ButtonToolbar>
             </Card.Footer>
           </Card>
-        </div>
+        </Container>
+        <Form onSubmit={this.handleUploadPicture}>
+          <Form.Control name="picture" type="file" />
+          <Button type="submit" style={{ backgroundColor: "turquoise" }}>
+            Upload Picture
+          </Button>
+        </Form>
       </>
     );
   }
@@ -72,5 +107,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getLoggedInUserProfileInfo, logout }
+  { getLoggedInUserProfileInfo, logout, uploadPicture, viewImage }
 )(UserProfile);

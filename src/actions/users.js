@@ -1,4 +1,5 @@
 import { domain, jsonHeaders, handleJsonResponse } from "./constants";
+import { push } from "connected-react-router";
 
 // action type constants
 export const GET_USER = "GET_USER";
@@ -32,10 +33,33 @@ export const getLoggedInUser = () => (dispatch, getState) => {
 };
 
 export const getLoggedInUserProfileInfo = () => dispatch => {
-  return dispatch(getLoggedInUser())
+  return dispatch(getLoggedInUser());
 };
 
-//Notice how these are defining our action cases
+export const EXPAND_IMAGE = "EXPAND_IMAGE";
+export const EXPAND_IMAGE_SUCCESS = "EXPAND_IMAGE_SUCCESS";
+export const EXPAND_IMAGE_FAIL = "EXPAND_IMAGE_FAIL";
+
+export const expandImage = username => dispatch => {
+  dispatch({
+    type: EXPAND_IMAGE
+  });
+
+  return fetch(url + "/" + username + "/picture", {
+    method: "GET",
+    headers: { "Content-Type": "multipart/form-data" }
+  })
+    .then(result => {
+      console.log(result);
+      return dispatch({ type: EXPAND_IMAGE_SUCCESS, payload: result });
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({ type: EXPAND_IMAGE_FAIL, payload: err })
+      );
+    });
+};
+
 export const REGISTER_USER = "REGISTER_USER";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
 export const REGISTER_USER_FAIL = "REGISTER_USER_FAIL";
@@ -94,18 +118,76 @@ export const editProfileUser = editData => dispatch => {
       })
     };
 
-//This is where you guys have utilized that dispatch
-export const registerThenGoToProfile = registerData => dispatch => {
-  return dispatch(registerUser(registerData)).then(() =>
-    dispatch(
-      getLoggedInUser({
-        username: registerData.username,
-        password: registerData.password
-      })
-    )
+export const registerThenGoToHomepage = registerData => dispatch => {
+  return dispatch(registerUser(registerData)).then(() => dispatch(push("/")));
+};
+
+export const UPLOAD_USER_PICTURE = "UPLOAD_USER_PICTURE";
+export const UPLOAD_USER_PICTURE_SUCCESS = "UPLOAD_USER_PICTURE_SUCCESS";
+export const UPLOAD_USER_PICTURE_FAIL = "UPLOAD_USER_PICTURE_FAIL";
+
+export const uploadUserPicture = formData => (dispatch, getState) => {
+  dispatch({
+    type: UPLOAD_USER_PICTURE
+  });
+
+  const { username, token } = getState().auth.login;
+
+  return fetch(url + "/" + username + "/picture", {
+    method: "PUT",
+    headers: { Authorization: "Bearer " + token },
+    body: formData
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({ type: UPLOAD_USER_PICTURE_SUCCESS, payload: result });
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({ type: UPLOAD_USER_PICTURE_FAIL, payload: err })
+      );
+    });
+};
+
+export const uploadUserPictureThenGetLoggedInUser = formData => dispatch => {
+  return dispatch(uploadUserPicture(formData)).then(() =>
+    dispatch(getLoggedInUser())
   );
 };
 
+export const GET_USERNAME = "GET_USERNAME";
+export const GET_USERNAME_SUCCESS = "GET_USERNAME_SUCCESS";
+export const GET_USERNAME_FAIL = "GET_USERNAME_FAIL";
 
-//Well, you're basically telling it to dispatch something here that's not defined.  If you look at some of the other dispatch requests on these actions you can trace them back to their instantiation. But right now, it doesn't look like you have separate actions for the edit profile (which I believe is a PUT request?).
+export const getUsername = () => dispatch => {
+  const url = domain + "/users";
+  dispatch({
+    type: GET_USERNAME
+  });
+  return fetch(url, {
+    method: "GET",
+    headers: jsonHeaders
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      console.log(result);
+      return dispatch({
+        type: GET_USERNAME_SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({
+          type: GET_USERNAME_FAIL,
+          payload: err
+        })
+      );
+    });
+};
 
+export const viewImage = function() {
+  return function(dispatch) {
+    dispatch(push("/profile/pic"));
+  };
+};
