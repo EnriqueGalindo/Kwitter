@@ -53,7 +53,7 @@ class LoginForm extends Component {
                         autoFocus
                         required
                         onChange={this.handleChange}
-                        placeholder="Enter Username"
+                        placeholder="Enter Capsule Corp ID"
                       />
                     </Form.Group>
                   </Col>
@@ -81,12 +81,9 @@ class LoginForm extends Component {
                       </Button>
 
                       <Link to="/register">
-                          <Button
-                            id="newProfile"
-                            disabled={isLoading}
-                          >
-                            Create New Profile
-                          </Button>
+                        <Button id="newProfile" disabled={isLoading}>
+                          Create New Profile
+                        </Button>
                         <br></br>
                       </Link>
                       {isLoading && <Spinner name="circle" color="blue" />}
