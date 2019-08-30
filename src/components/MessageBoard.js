@@ -6,7 +6,8 @@ import {
   likeMessage,
   logoutThenGoToHomepage as logout,
   deleteMessage,
-  getUsername
+  getUsername,
+  removeLike
 } from "../actions";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -102,6 +103,7 @@ class MessageBoard extends Component {
             <Col>
               {this.props.messages.map(message => {
                 const userDeletable = message.username === this.props.username;
+                const like = message.likes.find(like => like.username === this.props.username);
                 return (
                   <React.Fragment key={message.id}>
                     <Container
@@ -127,20 +129,27 @@ class MessageBoard extends Component {
                         <Col />
                       </Row>
                     </Container>
+                    {message.likes.length}
                     <Button
-                      onClick={() => this.props.likeMessage(message.id)}
+                      onClick={() => {
+                        if (like){
+                          this.props.removeLike(like.id)
+                        }
+                        else {
+                          this.props.likeMessage(message.id)
+                        }}}
                       size="sm"
                       style={{
                         color: "black",
                         backgroundColor: "white",
-                        borderColor: "grey"
+                        borderColor: "grey",
+                        outline: like ? "aqua 2px solid": "initial"
                       }}
                     >
                       Like
                     </Button>
-                    {message.likes.map(like => (
-                      <p key={like.id}>Liked by: {like.id}</p>
-                    ))}
+                    
+                    
                     {userDeletable && (
                       <Button
                         onClick={() => this.props.deleteMessage(message.id)}
@@ -181,6 +190,7 @@ class MessageBoard extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+    removeLike: (likeId) => dispatch(removeLike(likeId)),
     getMessages: () => dispatch(getMessages()),
     postMessage: text => dispatch(postMessage({ text })),
     likeMessage: id => dispatch(likeMessage(id)),
