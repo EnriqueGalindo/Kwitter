@@ -129,7 +129,7 @@ class MessageBoard extends Component {
                         <Col />
                       </Row>
                     </Container>
-                    {message.likes.length}
+                    {message.likes.length} <img src="https://cdn140.picsart.com/286693443014211.png?r1024x1024" width="25px"></img>
                     <Button
                       onClick={() => {
                         if (like){
@@ -143,10 +143,11 @@ class MessageBoard extends Component {
                         color: "black",
                         backgroundColor: "white",
                         borderColor: "grey",
-                        outline: like ? "aqua 2px solid": "initial"
+                        borderRadius: "10px",
+                        outline: like ? " turquoise 2px solid": "initial",
                       }}
                     >
-                      Like
+                      Cap
                     </Button>
                     
                     
@@ -157,7 +158,8 @@ class MessageBoard extends Component {
                       style={{
                         color: "black",
                         backgroundColor: "white",
-                        borderColor: "grey"
+                        borderColor: "grey",
+                        borderRadius: "10px"
                       }}
                       >
                         Delete
