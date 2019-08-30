@@ -4,9 +4,16 @@ import { getLoggedInUserProfileInfo } from "../actions/users";
 import {
   logoutThenGoToHomepage as logout,
   uploadUserPictureThenGetLoggedInUser as uploadPicture,
-  expandImage
+  viewImage
 } from "../actions";
-import { Navbar, Button, Card, Form, Container, ButtonToolbar } from "react-bootstrap";
+import {
+  Navbar,
+  Button,
+  Card,
+  Form,
+  Container,
+  ButtonToolbar
+} from "react-bootstrap";
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -23,26 +30,26 @@ class UserProfile extends Component {
     return (
       <>
         {/*navbar component*/}
-          <Navbar className="bg-dark justify-content-between" fixed="top">
-            <Navbar.Brand>
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
-                alt="Capsule Corp"
-                width="75"
-                height="75"
-              />
-            </Navbar.Brand>
-            <Button
-              variant="info"
-              href="/messages"
-              style={{ backgroundColor: "turquoise" }}
-            >
-              Message Board
-            </Button>
-            <Button variant="warning" onClick={this.props.logout}>
-              Logout
-            </Button>
-          </Navbar>
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/messages"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Message Board
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
         {/*profile card component*/}
         <Container id="profileContainer">
           <Card bg="info" text="white" style={{ width: "500px" }}>
@@ -59,13 +66,16 @@ class UserProfile extends Component {
                 "https://kwitter-api.herokuapp.com" +
                 this.props.user.pictureLocation
               }
+              onClick={this.props.viewImage}
             />
             <Card.Body style={{ backgroundColor: "turquoise" }}>
               <Card.Title>About:</Card.Title>
               <Card.Text>{this.props.user.about}</Card.Text>
             </Card.Body>
             <Card.Footer style={{ backgroundColor: "turquoise" }}>
-              <ButtonToolbar style={{ display: "flex", justifyContent: "space-around" }}>
+              <ButtonToolbar
+                style={{ display: "flex", justifyContent: "space-around" }}
+              >
                 <Button variant="warning">Edit</Button>
                 <Button variant="danger">Delete</Button>
               </ButtonToolbar>
@@ -91,5 +101,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getLoggedInUserProfileInfo, logout, uploadPicture, expandImage }
+  { getLoggedInUserProfileInfo, logout, uploadPicture, viewImage }
 )(UserProfile);

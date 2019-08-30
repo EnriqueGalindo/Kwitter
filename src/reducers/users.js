@@ -1,4 +1,15 @@
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAIL, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL, LOGOUT_SUCCESS, EXPAND_IMAGE, EXPAND_IMAGE_FAIL, EXPAND_IMAGE_SUCCESS } from "../actions";
+import {
+  GET_USER,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAIL,
+  LOGOUT_SUCCESS,
+  GET_USERNAME,
+  GET_USERNAME_FAIL,
+  GET_USERNAME_SUCCESS
+} from "../actions";
 
 const initialState = {
   getUserLoading: false,
@@ -49,30 +60,30 @@ export default (state = initialState, action) => {
         ...state,
         registerUserError: action.payload,
         registerUserLoading: false
-      }
+      };
     case LOGOUT_SUCCESS:
       return {
         ...initialState
-      }
-    case EXPAND_IMAGE:
+      };
+    case GET_USERNAME:
       return {
         ...state,
-        expandImageLoading: true,
-        expandImageError: null
+        getUsernameLoading: true,
+        getUsernameError: null
       };
 
-    case EXPAND_IMAGE_SUCCESS:
+    case GET_USERNAME_SUCCESS:
       return {
         ...state,
-        expandImage: action.payload,
-        expandImageLoading: false
+        getUsername: action.payload,
+        getUsernameLoading: false
       };
 
-    case EXPAND_IMAGE_FAIL:
+    case GET_USERNAME_FAIL:
       return {
         ...state,
-        expandImageError: action.payload,
-        expandImageLoading: false
+        getUsernameError: action.payload,
+        getUsernameLoading: false
       };
 
     default:

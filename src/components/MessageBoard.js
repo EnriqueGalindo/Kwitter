@@ -5,7 +5,8 @@ import {
   getMessages,
   likeMessage,
   logoutThenGoToHomepage as logout,
-  deleteMessage
+  deleteMessage,
+  getUsername
 } from "../actions";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -18,7 +19,6 @@ class MessageBoard extends Component {
   state = { message: "" };
   componentDidMount() {
     this.props.getMessages();
-    //this.props.likeMessage();
   }
   handleChange = event => {
     this.setState({ message: event.target.value });
@@ -64,13 +64,10 @@ class MessageBoard extends Component {
         <br />
         <br />
         <Container style={{ width: "500px" }} onChange={this.handleChange}>
-            <Form.Control
-              
-              placeholder="Write a Message"
-            />
-            <Button onClick={() => this.props.postMessage(this.state.message)}>
-              submit
-            </Button>
+          <Form.Control placeholder="Write a Message" />
+          <Button onClick={() => this.props.postMessage(this.state.message)}>
+            submit
+          </Button>
         </Container>
         <br />
         <br />
@@ -148,21 +145,23 @@ class MessageBoard extends Component {
 //   logout
 // };
 
- const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
-     getMessages: () => dispatch(getMessages()),
-     postMessage: text => dispatch(postMessage({ text })),
-    likeMessage: () => dispatch(likeMessage()),
-     deleteMessage: id => dispatch(deleteMessage(id))
-   };
- };
+    getMessages: () => dispatch(getMessages()),
+    postMessage: text => dispatch(postMessage({ text })),
+    likeMessage: id => dispatch(likeMessage(id)),
+    deleteMessage: id => dispatch(deleteMessage(id)),
+    getUsername: () => dispatch(getUsername())
+  };
+};
 
 export default connect(
   state => {
     return {
       user: state.users.getUser,
       messages: state.messages.getMessages,
-      username: state.auth.login.username
+      username: state.auth.login.username,
+      usernames: state.users.getUsername
     };
   },
   mapDispatchToProps

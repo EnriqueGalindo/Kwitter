@@ -1,5 +1,5 @@
 import { domain, jsonHeaders, handleJsonResponse } from "./constants";
-import { push } from "connected-react-router"
+import { push } from "connected-react-router";
 
 // action type constants
 export const GET_USER = "GET_USER";
@@ -89,16 +89,16 @@ export const registerThenGoToHomepage = registerData => dispatch => {
   return dispatch(registerUser(registerData)).then(() => dispatch(push("/")));
 };
 
-export const UPLOAD_USER_PICTURE = "UPLOAD_USER_PICTURE"
-export const UPLOAD_USER_PICTURE_SUCCESS = "UPLOAD_USER_PICTURE_SUCCESS"
-export const UPLOAD_USER_PICTURE_FAIL = "UPLOAD_USER_PICTURE_FAIL"
+export const UPLOAD_USER_PICTURE = "UPLOAD_USER_PICTURE";
+export const UPLOAD_USER_PICTURE_SUCCESS = "UPLOAD_USER_PICTURE_SUCCESS";
+export const UPLOAD_USER_PICTURE_FAIL = "UPLOAD_USER_PICTURE_FAIL";
 
 export const uploadUserPicture = formData => (dispatch, getState) => {
   dispatch({
     type: UPLOAD_USER_PICTURE
-  })
+  });
 
-  const { username, token } = getState().auth.login
+  const { username, token } = getState().auth.login;
 
   return fetch(url + "/" + username + "/picture", {
     method: "PUT",
@@ -107,17 +107,54 @@ export const uploadUserPicture = formData => (dispatch, getState) => {
   })
     .then(handleJsonResponse)
     .then(result => {
-      return dispatch({ type: UPLOAD_USER_PICTURE_SUCCESS, payload: result })
+      return dispatch({ type: UPLOAD_USER_PICTURE_SUCCESS, payload: result });
     })
     .catch(err => {
       return Promise.reject(
         dispatch({ type: UPLOAD_USER_PICTURE_FAIL, payload: err })
-      )
-    })
-}
+      );
+    });
+};
 
 export const uploadUserPictureThenGetLoggedInUser = formData => dispatch => {
   return dispatch(uploadUserPicture(formData)).then(() =>
     dispatch(getLoggedInUser())
   );
+};
+
+export const GET_USERNAME = "GET_USERNAME";
+export const GET_USERNAME_SUCCESS = "GET_USERNAME_SUCCESS";
+export const GET_USERNAME_FAIL = "GET_USERNAME_FAIL";
+
+export const getUsername = () => dispatch => {
+  const url = domain + "/users";
+  dispatch({
+    type: GET_USERNAME
+  });
+  return fetch(url, {
+    method: "GET",
+    headers: jsonHeaders
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      console.log(result);
+      return dispatch({
+        type: GET_USERNAME_SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(
+        dispatch({
+          type: GET_USERNAME_FAIL,
+          payload: err
+        })
+      );
+    });
+};
+
+export const viewImage = function() {
+  return function(dispatch) {
+    dispatch(push("/profile/pic"));
+  };
 };
