@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-loader": "^8.0.6",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.5.2",
     "history": "^4.9.0",
@@ -21,8 +22,6 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "sass": "^1.22.10"
-
-
   },
   "scripts": {
     "start": "react-scripts start",
