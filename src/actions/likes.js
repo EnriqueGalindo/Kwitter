@@ -35,35 +35,3 @@ export const likeMessage = messageId => (dispatch, getState) => {
       );
     });
 };
-export const REMOVE_LIKE = "REMOVE_LIKE";
-export const REMOVE_LIKE_SUCCESS = "REMOVE_LIKE_SUCCESS";
-export const REMOVE_LIKE_FAIL = "REMOVE_LIKE_FAIL";
-export const removeLike = likeId => (dispatch, getState) => {
-  const token = getState().auth.login.token;
-  dispatch({
-    type: REMOVE_LIKE,
-    
-  });
-  
-  return fetch(url + `/${likeId}`, {
-    method: "DELETE",
-    headers: { ...jsonHeaders, Authorization: `Bearer ${token}` },
-   
-  })
-    .then(handleJsonResponse)
-    .then(result => {
-      dispatch({
-        type: REMOVE_LIKE_SUCCESS,
-        payload: result
-      });
-      dispatch(getMessages());
-    })
-    .catch(err => {
-      return Promise.reject(
-        dispatch({
-          type: REMOVE_LIKE_FAIL,
-          payload: err
-        })
-      );
-    });
-};
