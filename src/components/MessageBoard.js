@@ -6,13 +6,13 @@ import {
   likeMessage,
   logoutThenGoToHomepage as logout,
   deleteMessage,
-  getUsername,
-  removeLike
+  getUsername
 } from "../actions";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Navbar from "react-bootstrap/Navbar";
 import { Form } from "react-bootstrap";
 
 
@@ -29,7 +29,26 @@ class MessageBoard extends Component {
     return (
       <>
         {/*navbar component*/}
-        {/* <StickyHeader nav="profile"/> */}
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/profile"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Profile
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
         <br />
         <br />
         <br />
@@ -84,7 +103,6 @@ class MessageBoard extends Component {
             <Col>
               {this.props.messages.map(message => {
                 const userDeletable = message.username === this.props.username;
-                const like = message.likes.find(like => like.username === this.props.username);
                 return (
                   <React.Fragment key={message.id}>
                     <Container
@@ -110,27 +128,20 @@ class MessageBoard extends Component {
                         <Col />
                       </Row>
                     </Container>
-                    {message.likes.length} <img src="https://cdn140.picsart.com/286693443014211.png?r1024x1024" alt="cap" width="25px"></img>
                     <Button
-                      onClick={() => {
-                        if (like){
-                          this.props.removeLike(like.id)
-                        }
-                        else {
-                          this.props.likeMessage(message.id)
-                        }}}
+                      onClick={() => this.props.likeMessage(message.id)}
                       size="sm"
                       style={{
                         color: "black",
                         backgroundColor: "white",
-                        borderRadius: "7px",
-                        border: like ? " turquoise 2px solid": "grey 1px solid",
+                        borderColor: "grey"
                       }}
                     >
-                      Cap
+                      Like
                     </Button>
-                    
-                    
+                    {message.likes.map(like => (
+                      <p key={like.id}>Liked by: {like.id}</p>
+                    ))}
                     {userDeletable && (
                       <Button
                         onClick={() => this.props.deleteMessage(message.id)}
@@ -138,8 +149,7 @@ class MessageBoard extends Component {
                       style={{
                         color: "black",
                         backgroundColor: "white",
-                        borderColor: "grey",
-                        borderRadius: "10px"
+                        borderColor: "grey"
                       }}
                       >
                         Delete
@@ -172,7 +182,6 @@ class MessageBoard extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeLike: (likeId) => dispatch(removeLike(likeId)),
     getMessages: () => dispatch(getMessages()),
     postMessage: text => dispatch(postMessage({ text })),
     likeMessage: id => dispatch(likeMessage(id)),
