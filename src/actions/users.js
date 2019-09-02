@@ -170,7 +170,6 @@ export const getUsername = () => dispatch => {
   })
     .then(handleJsonResponse)
     .then(result => {
-      console.log(result);
       return dispatch({
         type: GET_USERNAME_SUCCESS,
         payload: result
