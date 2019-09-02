@@ -18,13 +18,20 @@ import { Form } from "react-bootstrap";
 
 class MessageBoard extends Component {
   state = { message: "" };
+
   componentDidMount() {
-    this.props.getMessages();
-    this.props.getUsername();
+    this.timer = setInterval(() => this.props.getMessages(), 1000);
+    this.timer = setInterval(() => this.props.getUsername(), 1000);
   }
+
+  componentWillUnmount() {
+    this.timer = null
+  }
+
   handleChange = event => {
     this.setState({ message: event.target.value });
   };
+
   render() {
     return (
       <>
@@ -65,7 +72,7 @@ class MessageBoard extends Component {
         </Container>
         <br />
         <br />
-        <Container></Container>
+        <Container />
         <Container style={{ width: "500px" }} onChange={this.handleChange}>
           <Form.Control placeholder="Capsulize your thoughts!" />
           <Button onClick={() => this.props.postMessage(this.state.message)}>
@@ -103,7 +110,9 @@ class MessageBoard extends Component {
             <Col>
               {this.props.messages.map(message => {
                 const userDeletable = message.username === this.props.username;
-                const like = message.likes.find(like => like.username === this.props.username);
+                const like = message.likes.find(
+                  like => like.username === this.props.username
+                );
                 return (
                   <React.Fragment key={message.id}>
                     <Container
@@ -129,38 +138,40 @@ class MessageBoard extends Component {
                         <Col />
                       </Row>
                     </Container>
-                    {message.likes.length} <img src="https://cdn140.picsart.com/286693443014211.png?r1024x1024" width="25px"></img>
+                    {message.likes.length}{" "}
+                    <img
+                      src="https://cdn140.picsart.com/286693443014211.png?r1024x1024"
+                      width="25px"
+                    />
                     <Button
                       onClick={() => {
-                        if (like){
-                          this.props.removeLike(like.id)
+                        if (like) {
+                          this.props.removeLike(like.id);
+                        } else {
+                          this.props.likeMessage(message.id);
                         }
-                        else {
-                          this.props.likeMessage(message.id)
-                        }}}
+                      }}
                       size="sm"
                       style={{
                         color: "black",
                         backgroundColor: "white",
                         borderColor: "grey",
                         borderRadius: "10px",
-                        outline: like ? " turquoise 2px solid": "initial",
+                        outline: like ? " turquoise 2px solid" : "initial"
                       }}
                     >
                       Cap
                     </Button>
-                    
-                    
                     {userDeletable && (
                       <Button
                         onClick={() => this.props.deleteMessage(message.id)}
                         size="sm"
-                      style={{
-                        color: "black",
-                        backgroundColor: "white",
-                        borderColor: "grey",
-                        borderRadius: "10px"
-                      }}
+                        style={{
+                          color: "black",
+                          backgroundColor: "white",
+                          borderColor: "grey",
+                          borderRadius: "10px"
+                        }}
                       >
                         Delete
                       </Button>
@@ -192,7 +203,7 @@ class MessageBoard extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeLike: (likeId) => dispatch(removeLike(likeId)),
+    removeLike: likeId => dispatch(removeLike(likeId)),
     getMessages: () => dispatch(getMessages()),
     postMessage: text => dispatch(postMessage({ text })),
     likeMessage: id => dispatch(likeMessage(id)),
