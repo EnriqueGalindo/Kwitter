@@ -119,7 +119,7 @@ export default connect(
     return {
       user: state.users.getUser,
       messages: state.messages.getMessages,
-      username: state.auth.login.username,
+      username: state.auth.login.username
     };
   },
   mapDispatchToProps
