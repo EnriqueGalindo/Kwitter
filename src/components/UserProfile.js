@@ -8,6 +8,7 @@ import {
   deleteUser
 } from "../actions";
 import {
+  Navbar,
   Button,
   Card,
   Form,
@@ -44,6 +45,26 @@ class UserProfile extends Component {
           crossOrigin="anonymous"
         />
         {/*navbar component*/}
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/messages"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Message Board
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
         {/*profile card component*/}
         <Container id="profileContainer">
           <Card bg="info" text="white" style={{ width: "500px" }}>
@@ -86,7 +107,6 @@ class UserProfile extends Component {
             Upload Picture
           </Button>
         </Form>
-        <Messages/>
       </>
     );
   }
