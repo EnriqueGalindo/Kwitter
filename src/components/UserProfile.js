@@ -7,10 +7,9 @@ import {
   viewImage,
   deleteUser
 } from "../actions";
-import { Button, Card, Form, Container, ButtonToolbar } from "react-bootstrap";
+import { Button, Card, Form, Container, ButtonToolbar, Navbar } from "react-bootstrap";
 import Messages from "./Messages";
 import { NavLink } from "react-router-dom";
-
 class UserProfile extends Component {
   componentDidMount() {
     this.props.getLoggedInUserProfileInfo();
@@ -32,6 +31,26 @@ class UserProfile extends Component {
     return (
       <>
         {/*navbar component*/}
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/messages"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Message Board
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
         {/*profile card component*/}
         <Container id="profileContainer">
           <Card bg="info" text="white" style={{ width: "500px" }}>
