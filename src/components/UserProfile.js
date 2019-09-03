@@ -31,7 +31,7 @@ class UserProfile extends Component {
     return (
       <>
         {/*navbar component*/}
-        <Navbar className="bg-dark justify-content-between" fixed="top">
+        {/* <Navbar className="bg-dark justify-content-between" fixed="top">
           <Navbar.Brand>
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
@@ -50,7 +50,7 @@ class UserProfile extends Component {
           <Button variant="warning" onClick={this.props.logout}>
             Logout
           </Button>
-        </Navbar>
+        </Navbar> */}
         {/*profile card component*/}
         <Container id="profileContainer">
           <Card bg="info" text="white" style={{ width: "500px" }}>
