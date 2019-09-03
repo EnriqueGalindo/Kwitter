@@ -1,5 +1,6 @@
 import { domain, jsonHeaders, handleJsonResponse } from "./constants";
 import { push } from "connected-react-router";
+// import { editProfile } from "../components";
 
 // action type constants
 export const GET_USER = "GET_USER";
@@ -95,16 +96,18 @@ export const registerUser = registerData => dispatch => {
         dispatch({ type: REGISTER_USER_FAIL, payload: err })
       );
     });
-//edit profile
-}; 
 
-export const editProfileUser = editData => dispatch => {
+}; 
+//edit profile
+export const editProfile = editData => (dispatch, getState) => {
   dispatch({
     type: EDIT_USER
   });
-  return fetch(url, {
-    method: "POST",
-    headers: jsonHeaders,
+  const username= getState().auth.login.username
+  const token = getState().auth.login.token;
+  return fetch(url + "/" + username, {
+    method: "PATCH",
+    headers: { Authorization: "Bearer " + token, ...jsonHeaders},
     body: JSON.stringify(editData)
   })
     .then(handleJsonResponse)
@@ -116,6 +119,9 @@ export const editProfileUser = editData => dispatch => {
         dispatch({ type: EDIT_USER_FAIL, payload: err })
       );
       })
+    };
+export const userProfile = editData => dispatch => {
+      return dispatch(editProfile(editData)).then(() => dispatch(push("/")));
     };
 
 export const registerThenGoToHomepage = registerData => dispatch => {

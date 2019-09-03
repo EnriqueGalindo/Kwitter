@@ -15,6 +15,8 @@ import {
   Container,
   ButtonToolbar
 } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import Messages from "./Messages"
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -89,7 +91,9 @@ class UserProfile extends Component {
               <ButtonToolbar
                 style={{ display: "flex", justifyContent: "space-around" }}
               >
+                <NavLink to='/editprofile'>
                 <Button variant="warning">Edit</Button>
+                </NavLink>
                 <Button variant="danger" onClick={this.handleDeleteUser}>
                   Delete
                 </Button>
