@@ -4,4 +4,3 @@ export { default as UserProfile } from "./UserProfile";
 export { default as RegisterForm } from "./RegisterForm"
 export { default as MessageBoard } from "./MessageBoard"
 export { default as EditProfile } from "./EditProfile";
-export { default as StickyHeader } from "./StickyHeader"

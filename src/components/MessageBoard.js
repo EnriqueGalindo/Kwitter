@@ -13,6 +13,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Navbar from "react-bootstrap/Navbar";
 import { Form } from "react-bootstrap";
 
 class MessageBoard extends Component {
@@ -28,7 +29,26 @@ class MessageBoard extends Component {
     return (
       <>
         {/*navbar component*/}
-        {/* <StickyHeader nav="profile"/> */}
+        <Navbar className="bg-dark justify-content-between" fixed="top">
+          <Navbar.Brand>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
+              alt="Capsule Corp"
+              width="75"
+              height="75"
+            />
+          </Navbar.Brand>
+          <Button
+            variant="info"
+            href="/profile"
+            style={{ backgroundColor: "turquoise" }}
+          >
+            Profile
+          </Button>
+          <Button variant="warning" onClick={this.props.logout}>
+            Logout
+          </Button>
+        </Navbar>
         <br />
         <br />
         <br />
@@ -109,7 +129,7 @@ class MessageBoard extends Component {
                         <Col />
                       </Row>
                     </Container>
-                    {message.likes.length} <img src="https://cdn140.picsart.com/286693443014211.png?r1024x1024" alt="cap" width="25px"></img>
+                    {message.likes.length} <img alt="" src="https://cdn140.picsart.com/286693443014211.png?r1024x1024" width="25px"></img>
                     <Button
                       onClick={() => {
                         if (like){
@@ -122,8 +142,9 @@ class MessageBoard extends Component {
                       style={{
                         color: "black",
                         backgroundColor: "white",
-                        borderRadius: "7px",
-                        border: like ? " turquoise 2px solid": "grey 1px solid",
+                        borderColor: "grey",
+                        borderRadius: "10px",
+                        outline: like ? " turquoise 2px solid": "initial",
                       }}
                     >
                       Cap
