@@ -11,13 +11,13 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 class MessageBoard extends Component {
-  state = { showMine: true }
+  state = { showMine: false }
   componentDidMount() {
     this.props.getMessages();
   }
 
-  handleSwitchLike = () => { this.setState({ showMine: false }) }
-  handleSwitchMine = () => { this.setState({ showMine: true }) }
+  handleSwitchLike = () => { this.setState({ showMine: true }) }
+  handleSwitchMine = () => { this.setState({ showMine: false }) }
   filterLiked = (messages) => {
     return messages.filter(message => {
       return message.likes.some(like => {
@@ -72,7 +72,7 @@ class MessageBoard extends Component {
         >
           Cap
       </Button>
-        )}
+        
       </React.Fragment>
     );
   }
@@ -80,7 +80,7 @@ class MessageBoard extends Component {
   render() {
     return (
       <React.Fragment>
-        <Button onClick={this.handleSwitchMine}
+        {/* <Button onClick={this.handleSwitchMine}
          style={{
           color: "black",
           backgroundColor: "white",
@@ -88,7 +88,7 @@ class MessageBoard extends Component {
           border: "grey 1px solid",
         }}>
           My Capsules
-      </Button>
+      </Button> */}
         <Button onClick={this.handleSwitchLike}
          style={{
           color: "black",
