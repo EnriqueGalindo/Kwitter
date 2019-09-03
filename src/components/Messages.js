@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-
   getMessages,
   likeMessage,
-  deleteMessage,
   removeLike
 } from "../actions";
 import Container from "react-bootstrap/Container";
@@ -28,7 +26,6 @@ class MessageBoard extends Component {
     })
   }
   messagesRender = message => {
-    const userDeletable = message.username === this.props.username;
     const like = message.likes.find(like => like.username === this.props.username);
     return (
       <React.Fragment key={message.id}>
@@ -74,22 +71,7 @@ class MessageBoard extends Component {
           }}
         >
           Cap
-                </Button>
-
-
-        {userDeletable && (
-          <Button
-            onClick={() => this.props.deleteMessage(message.id)}
-            size="sm"
-            style={{
-              color: "black",
-              backgroundColor: "white",
-              borderColor: "grey",
-              borderRadius: "10px"
-            }}
-          >
-            Delete
-                  </Button>
+      </Button>
         )}
       </React.Fragment>
     );
@@ -98,11 +80,23 @@ class MessageBoard extends Component {
   render() {
     return (
       <React.Fragment>
-        <Button onClick={this.handleSwitchMine}>
-          My Messages
+        <Button onClick={this.handleSwitchMine}
+         style={{
+          color: "black",
+          backgroundColor: "white",
+          borderRadius: "7px",
+          border: "grey 1px solid",
+        }}>
+          My Capsules
       </Button>
-        <Button onClick={this.handleSwitchLike}>
-          Liked Messages
+        <Button onClick={this.handleSwitchLike}
+         style={{
+          color: "black",
+          backgroundColor: "white",
+          borderRadius: "7px",
+          border:   "grey 1px solid",
+        }}>
+          Capped
       </Button>
         {this.state.showMine ? this.props.messages.map(this.messagesRender) :
            this.filterLiked(this.props.messages).map(this.messagesRender)}
@@ -117,7 +111,6 @@ const mapDispatchToProps = dispatch => {
     removeLike: (likeId) => dispatch(removeLike(likeId)),
     getMessages: () => dispatch(getMessages()),
     likeMessage: id => dispatch(likeMessage(id)),
-    deleteMessage: id => dispatch(deleteMessage(id)),
   };
 };
 
