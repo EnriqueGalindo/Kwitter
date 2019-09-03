@@ -7,16 +7,9 @@ import {
   viewImage,
   deleteUser
 } from "../actions";
-import {
-  Navbar,
-  Button,
-  Card,
-  Form,
-  Container,
-  ButtonToolbar
-} from "react-bootstrap";
+import { Button, Card, Form, Container, ButtonToolbar } from "react-bootstrap";
+import Messages from "./Messages";
 import { NavLink } from "react-router-dom";
-import Messages from "./Messages"
 
 class UserProfile extends Component {
   componentDidMount() {
@@ -38,33 +31,7 @@ class UserProfile extends Component {
   render() {
     return (
       <>
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossOrigin="anonymous"
-        />
         {/*navbar component*/}
-        <Navbar className="bg-dark justify-content-between" fixed="top">
-          <Navbar.Brand>
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe6ljFEdHvbwECDVJ4J5xjsX3Fn2RWkwdW_QnAYOKpdoBBzWzuVg"
-              alt="Capsule Corp"
-              width="75"
-              height="75"
-            />
-          </Navbar.Brand>
-          <Button
-            variant="info"
-            href="/messages"
-            style={{ backgroundColor: "turquoise" }}
-          >
-            Message Board
-          </Button>
-          <Button variant="warning" onClick={this.props.logout}>
-            Logout
-          </Button>
-        </Navbar>
         {/*profile card component*/}
         <Container id="profileContainer">
           <Card bg="info" text="white" style={{ width: "500px" }}>
@@ -91,8 +58,8 @@ class UserProfile extends Component {
               <ButtonToolbar
                 style={{ display: "flex", justifyContent: "space-around" }}
               >
-                <NavLink to='/editprofile'>
-                <Button variant="warning">Edit</Button>
+                <NavLink to="/editprofile">
+                  <Button variant="warning">Edit</Button>
                 </NavLink>
                 <Button variant="danger" onClick={this.handleDeleteUser}>
                   Delete
@@ -107,6 +74,7 @@ class UserProfile extends Component {
             Upload Picture
           </Button>
         </Form>
+        <Messages />
       </>
     );
   }

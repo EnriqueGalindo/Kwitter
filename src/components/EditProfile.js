@@ -55,7 +55,7 @@ render () {
       Change Password
       </Form.Label>
     <input type="password" 
-    class="form-control" 
+    className="form-control" 
     name="password" 
     placeholder="Enter New Password" 
     onChange={this.handleChange}
