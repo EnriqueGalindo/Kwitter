@@ -13,14 +13,17 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Navbar from "react-bootstrap/Navbar";
 import { Form } from "react-bootstrap";
 
 class MessageBoard extends Component {
   state = { message: "" };
   componentDidMount() {
-    this.props.getMessages();
-    this.props.getUsername();
+    this.timer = setInterval(() => this.props.getMessages(), 1000);
+    this.timer = setInterval(() => this.props.getUsername(), 1000);
+  }
+
+  componentWillUnmount() {
+    this.timer = null
   }
   handleChange = event => {
     this.setState({ message: event.target.value });

@@ -7,7 +7,7 @@ import {
   viewImage,
   deleteUser
 } from "../actions";
-import { Button, Card, Form, Container, ButtonToolbar, Navbar } from "react-bootstrap";
+import { Button, Card, Form, Container, ButtonToolbar } from "react-bootstrap";
 import Messages from "./Messages";
 import { NavLink } from "react-router-dom";
 class UserProfile extends Component {
