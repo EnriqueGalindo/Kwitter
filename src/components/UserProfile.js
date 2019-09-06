@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { domain } from "../actions/constants"
 import { getLoggedInUserProfileInfo } from "../actions/users";
 import {
   logoutThenGoToHomepage as logout,
@@ -64,7 +65,7 @@ class UserProfile extends Component {
               style={{ backgroundColor: "turquoise" }}
               variant="top"
               src={
-                "https://kwitter-api.herokuapp.com" +
+                domain +
                 this.props.user.pictureLocation
               }
               onClick={this.props.viewImage}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getLoggedInUserProfileInfo } from "../actions/users";
+import { domain } from "../actions/constants"
 export class ProfilePic extends Component {
   componentDidMount() {
     this.props.getLoggedInUserProfileInfo();
@@ -11,7 +12,7 @@ export class ProfilePic extends Component {
     return (
       <img
         src={
-          "https://kwitter-api.herokuapp.com" + this.props.user.pictureLocation
+          domain + this.props.user.pictureLocation
         }
         alt="User Face"
       />
