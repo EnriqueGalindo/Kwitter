@@ -2,7 +2,7 @@
   "name": "kwitter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gitlab.com/ehanson94/assessment---kwitter-frontend",
+  "homepage": "https://ehanson94.gitlab.io/assessment---kwitter-frontend",
   "dependencies": {
     "babel-loader": "^8.0.6",
     "bootstrap": "^4.3.1",
